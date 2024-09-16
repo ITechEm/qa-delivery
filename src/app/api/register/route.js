@@ -24,5 +24,17 @@ export async function POST(req) {
   body.password = bcrypt.hashSync(notHashedPassword, salt);
 
   const createdUser = await User.create(body);
+  if (!email?.length) {
+    return Response.json(
+      {
+        message: " The mail must contrain @",
+        status: 400,
+        ok: false
+      },
+      {
+        status: 400,
+      }
+    );
+  }
   return Response.json(createdUser);
 }
