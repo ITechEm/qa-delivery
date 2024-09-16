@@ -65,21 +65,21 @@ export { handler as GET, handler as POST }
 
 ///////////////////////////////////////////////////////////////////
 
-export async function POST(req) {
-  mongoose.connect(process.env.MONGO_URL);
+// export async function POST(req) {
+//   mongoose.connect(process.env.MONGO_URL);
   
-  if (response.ok) {
-      setLoginInProgress(true)
-    }
-    else {
-      setError(true);
-      }
-  return Response.json(setLoginInProgress);
-}
+//   if (response.ok) {
+//       setLoginInProgress(true)
+//     }
+//     else {
+//       setError(true);
+//       }
+//   return Response.json(setLoginInProgress);
+// }
 
-export async function GET() {
-  mongoose.connect(process.env.MONGO_URL);
-  return Response.json(
-    await setLoginInProgress()
-  );
-}
+// export async function GET() {
+//   mongoose.connect(process.env.MONGO_URL);
+//   return Response.json(
+//     await setLoginInProgress()
+//   );
+// }
