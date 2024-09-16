@@ -38,7 +38,16 @@ export async function GET(req) {
     const session = await getServerSession(authOptions);
     const email = session?.user?.email;
     if (!email) {
-      return Response.json({});
+      return Response.json(
+        {
+          message: "The email is not registered in app",
+          status: 400,
+          ok: false
+        },
+        {
+          status: 400,
+        }
+      );
     }
     filterUser = {email};
   }
@@ -54,7 +63,27 @@ export async function DELETE(req) {
   mongoose.connect(process.env.MONGO_URL);
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
-  await Category.deleteOne({_id});
+  if (await User.deleteOne({_id})) {
+    return Response.json(
+      {
+        message: "The user is deleted"
+      }
+    );
+  }
   
-  return Response.json(true);
+  return Response.json([]);
 }
+
+export async function GET(req) {
+  mongoose.connect(process.env.MONGO_URL);
+  const url = new URL(req.url);
+  const _id = url.searchParams.get('_id');
+  if (!_id) {
+      return Response.json(
+        {
+          message: "User not found",
+          status: 404,
+        },
+      );
+    }
+  }
