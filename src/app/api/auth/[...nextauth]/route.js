@@ -39,6 +39,32 @@ export const authOptions = {
           return user;
         }
 
+        if (!passwordOk) {
+          return Response.json(
+            {
+              message: "Password must be at least 6 characters",
+              status: 400,
+              ok: false
+            },
+            {
+              status: 400,
+            }
+          );
+        }
+
+        if (!email) {
+          return Response.json(
+            {
+              message: "The email is not registered in app",
+              status: 400,
+              ok: false
+            },
+            {
+              status: 400,
+            }
+          );
+        }
+
         return null
       }
     })
