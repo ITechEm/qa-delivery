@@ -74,7 +74,7 @@ export async function DELETE(req) {
   return Response.json([]);
 }
 
-export async function GET(req) {
+/*export async function GET(req) {
   mongoose.connect(process.env.MONGO_URL);
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
@@ -86,4 +86,38 @@ export async function GET(req) {
         },
       );
     }
-  }
+  }*/
+
+    export async function GET(req) {
+      mongoose.connect(process.env.MONGO_URL);
+    
+      const url = new URL(req.url);
+      const _id = url.searchParams.get('_id');
+    
+      let filterUser = {};
+      if (!_id) {
+        filterUser = {_id};
+      } else {
+        const session = await getServerSession(authOptions);
+        const email = session?.user?.email;
+        if (!email) {
+          return Response.json(
+            {
+              message: "User not found",
+              status: 404,
+              ok: false
+            },
+            {
+              status: 404,
+            }
+          );
+        }
+        filterUser = {email};
+      }
+    
+      const user = await User.findOne(filterUser).lean();
+      const userInfo = await UserInfo.findOne({email:user.email}).lean();
+    
+      return Response.json({...user, ...userInfo});
+    
+    }
