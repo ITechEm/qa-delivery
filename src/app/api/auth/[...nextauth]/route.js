@@ -7,6 +7,8 @@ import NextAuth, {getServerSession} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import {signIn} from "next-auth/react";
+
 
 export const authOptions = {
   secret: process.env.SECRET,
@@ -16,10 +18,10 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
   providers: [
-    GoogleProvider({
+/*    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
+    }),*/
     CredentialsProvider({
       name: 'Credentials',
       id: 'credentials',
@@ -38,33 +40,6 @@ export const authOptions = {
         if (passwordOk) {
           return user;
         }
-
-        if (!passwordOk) {
-          return Response.json(
-            {
-              message: "Password must be at least 6 characters",
-              status: 400,
-              ok: false
-            },
-            {
-              status: 400,
-            }
-          );
-        }
-
-        if (!email) {
-          return Response.json(
-            {
-              message: "The email is not registered in app",
-              status: 400,
-              ok: false
-            },
-            {
-              status: 400,
-            }
-          );
-        }
-
         return null
       }
     })
@@ -87,3 +62,24 @@ export async function isAdmin() {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
+
+///////////////////////////////////////////////////////////////////
+
+export async function POST(req) {
+  mongoose.connect(process.env.MONGO_URL);
+  
+  if (response.ok) {
+      setLoginInProgress(true)
+    }
+    else {
+      setError(true);
+      }
+  return Response.json(setLoginInProgress);
+}
+
+export async function GET() {
+  mongoose.connect(process.env.MONGO_URL);
+  return Response.json(
+    await setLoginInProgress()
+  );
+}

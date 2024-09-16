@@ -56,7 +56,7 @@ export default function RegisterPage() {
         <button type="submit" disabled={creatingUser}>
           Register
         </button>
-        <div className="my-4 text-center text-gray-500">
+        {/* <div className="my-4 text-center text-gray-500">
           or login with provider
         </div>
         <button
@@ -64,7 +64,7 @@ export default function RegisterPage() {
           className="flex gap-4 justify-center">
           <Image src={'/google.png'} alt={''} width={24} height={24} />
           Login with google
-        </button>
+        </button> */}
         <div className="text-center my-4 text-gray-500 border-t pt-4">
           Existing account?{' '}
           <Link className="underline" href={'/login'}>Login here &raquo;</Link>

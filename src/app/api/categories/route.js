@@ -5,12 +5,10 @@ import mongoose from "mongoose";
 export async function POST(req) {
   mongoose.connect(process.env.MONGO_URL);
   const {name} = await req.json();
-  if (await isAdmin()) {
+  
     const categoryDoc = await Category.create({name});
     return Response.json(categoryDoc);
-  } else {
-    return Response.json({});
-  }
+ 
 }
 
 export async function PUT(req) {
@@ -33,8 +31,27 @@ export async function DELETE(req) {
   mongoose.connect(process.env.MONGO_URL);
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
-  if (await isAdmin()) {
-    await Category.deleteOne({_id});
-  }
+  // if (await isAdmin()) {
+  //   await Category.deleteOne({_id});
+  //   return Response.json(
+  //     {
+  //       message: "The category is deleted"
+  //     }
+  //   );
+  // }else {
+  //   return Response.json(
+  //     {
+  //       message: "You don't have the rights to delete this category",
+  //       status: "not Admin"
+  //     } 
+  //   );
+  // }
+ if (await Category.deleteOne({_id})) {    // delete a categorie as not an admin
+      return Response.json(
+        {
+          message: "The categorie is deleted"
+        }
+      );
+    }
   return Response.json(true);
 }

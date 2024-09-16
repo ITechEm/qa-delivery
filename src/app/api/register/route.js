@@ -27,7 +27,7 @@ export async function POST(req) {
   if (!email?.length) {
     return Response.json(
       {
-        message: " The mail must contrain @",
+        message: " The mail must contain @ ",
         status: 400,
         ok: false
       },
