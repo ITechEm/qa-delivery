@@ -11,19 +11,9 @@ export default function LoginPage() {
   async function handleFormSubmit(ev) {
     ev.preventDefault();
     setLoginInProgress(true);
-    setError(false);
-    await signIn('credentials', {email, password});
-    const response = await fetch('/api/auth/signIn', {
-      method: 'POST',
-      body: JSON.stringify({email, password, callbackUrl: '/'}),
-      headers: {'Content-Type': 'application/json'},
-    });
-    if (response.ok) {
-      setLoginInProgress(true)
-    }
-    else {
-      setError(true);
-    }
+
+    await signIn('credentials', {email, password, callbackUrl: '/'});
+
     setLoginInProgress(false);
   }
 
@@ -52,3 +42,22 @@ export default function LoginPage() {
     </section>
   );
 }
+
+// async function handleFormSubmit(ev) {
+//   ev.preventDefault();
+//   setLoginInProgress(true);
+//   setError(false);
+//   await signIn('credentials', {email, password});
+//   const response = await fetch('/api/auth/signIn', {
+//     method: 'POST',
+//     body: JSON.stringify({email, password, callbackUrl: '/'}),
+//     headers: {'Content-Type': 'application/json'},
+//   });
+//   if (response.ok) {
+//     setLoginInProgress(true)
+//   }
+//   else {
+//     setError(true);
+//   }
+//   setLoginInProgress(false);
+// }
