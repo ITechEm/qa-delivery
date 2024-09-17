@@ -66,7 +66,7 @@ export async function POST(req) {
     shipping_options: [
       {
         shipping_rate_data: {
-          display_name: 'NOTE: In TEST MODE always use 4242424242424242 NumberCard, any date for LL/AA and random CCV',
+          display_name: 'NOTE: In TEST MODE always use 4242424242424242 Card Number, any date for LL/AA and a random CVC.',
           type: 'fixed_amount',
           fixed_amount: {amount: 500, currency: 'EUR'},
         },
