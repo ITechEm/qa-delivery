@@ -47,7 +47,7 @@ export default function OrderPage() {
           </span>
         </h1>
         <p className="my-6 text-gray-500 text-sm">
-          We will call you when your order will be on the way.
+          We will call you when your order will arrive on your address.
         </p>
         <div className="flex gap-4 text-sm">
           <button className="flex justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded-50">
@@ -63,7 +63,7 @@ export default function OrderPage() {
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
       <div className="relative hidden md:block">
-        <Image src={'/pizza.png'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
+        <Image src={''} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
       {loadingOrder && (
         <div>Loading order...</div>
