@@ -13,12 +13,12 @@ This is a `full-stack` project created by dejwid and `modified by me`.
 
 ```bash
 
-🚀 JavaScript for front-end and back-end
+｡🇯‌🇸‌‌ JavaScript for front-end and back-end
 ⚡ Postman for backend API
 💾 MongoDB for database
-🧰 Stripe for payments
+💳 Stripe for payments
 🏭 GitHub for CI/CD
-🚢 Vercel for deployment
+🚀 Vercel for deployment
 
 ```
 
