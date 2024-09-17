@@ -83,7 +83,7 @@ export default function MenuItem(menuItem) {
                         onChange={() => setSelectedSize(size)}
                         checked={selectedSize?.name === size.name}
                         name="size"/>
-                      {size.name} ${basePrice + size.price}
+                      {size.name} €{basePrice + size.price}
                     </label>
                   ))}
                 </div>

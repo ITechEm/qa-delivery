@@ -38,7 +38,7 @@ export default function OrderPage() {
   }
 
   return (
-    <section className="hero md:mt-4">
+    <section className=" md:mt-4">
       <div className="py-8 md:py-12">
         <h1 className="text-5xl font-semibold">
         Your orde is on the way 
