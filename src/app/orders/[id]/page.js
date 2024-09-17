@@ -67,7 +67,7 @@ export default function OrderPage() {
         <div>Loading order...</div>
       )}
       {order && (
-        <div className="grid md:grid-cols-2 md:gap-16 relative hidden md:block">
+        <div className="grid md:grid-cols-2 md:gap-16 relative">
           <div>
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
