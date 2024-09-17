@@ -13,7 +13,7 @@ This is a full-stack project created by dejwid and modified by me.
 
 ```bash
 
-🚀 ```JavaScrip``` for front-end and back-end
+🚀 JavaScrip for front-end and back-end
 ⚡ Postman for backend API
 💾 MongoDB for database
 🧰 Stripe for payments
@@ -24,7 +24,7 @@ This is a full-stack project created by dejwid and modified by me.
 
 ## Deployment
 
-The easiest way to deploy my project was to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to `deploy` my project was to use the `[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)` from the creators of Next.js.
 
 ## License
-The qa-delivery project is licensed under the terms of the MIT license.
+The `qa-delivery` project is licensed under the terms of the MIT license.
