@@ -62,14 +62,12 @@ export default function OrderPage() {
       <div className="relative hidden md:block">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
-      <div className="relative hidden md:block">
-        <Image src={''} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
-      </div>
+     
       {loadingOrder && (
         <div>Loading order...</div>
       )}
       {order && (
-        <div className="grid md:grid-cols-2 md:gap-16">
+        <div className="grid md:grid-cols-2 md:gap-16 relative hidden md:block">
           <div>
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
