@@ -5,6 +5,7 @@ import SectionHeaders from "@/components/layout/SectionHeaders";
 import CartProduct from "@/components/menu/CartProduct";
 import {useParams} from "next/navigation";
 import {useContext, useEffect, useState} from "react";
+import Right from "@/components/icons/Right";
 import Image from "next/image";
 
 export default function OrderPage() {
