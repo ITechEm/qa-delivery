@@ -5,6 +5,7 @@ import SectionHeaders from "@/components/layout/SectionHeaders";
 import CartProduct from "@/components/menu/CartProduct";
 import {useParams} from "next/navigation";
 import {useContext, useEffect, useState} from "react";
+import Image from "next/image";
 
 export default function OrderPage() {
   const {clearCart} = useContext(CartContext);
@@ -43,6 +44,10 @@ export default function OrderPage() {
           <p>Your orde is on the way...</p>
           <p>We will call you when your order will be on the way.</p>
         </div>
+      </div>
+
+      <div className="relative hidden md:block">
+        <Image src={'/yourOrder.gif'} layout={'fill'} objectFit={'contain'} alt={'pizza'} />
       </div>
       {loadingOrder && (
         <div>Loading order...</div>
