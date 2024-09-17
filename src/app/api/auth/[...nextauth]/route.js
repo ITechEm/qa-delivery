@@ -7,7 +7,7 @@ import NextAuth, {getServerSession} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import {signIn} from "next-auth/react";
+
 
 
 export const authOptions = {
@@ -18,10 +18,10 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
   providers: [
-/*    GoogleProvider({
+    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),*/
+    }),
     CredentialsProvider({
       name: 'Credentials',
       id: 'credentials',
