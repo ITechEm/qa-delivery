@@ -9,18 +9,18 @@ export async function POST(req) {
   if (!pass?.length || pass.length < 6) {
     return Response.json(
       {
-        message: "Password must be at least 6 characters"
+        message: "Password must be at least 6 characters",
       },
       {
         status: 400,
       }
     );
   }
-
+  
   const notHashedPassword = pass;
   const salt = bcrypt.genSaltSync(10);
   body.password = bcrypt.hashSync(notHashedPassword, salt);
-
+  
   const createdUser = await User.create(body);
   return Response.json(createdUser);
-}
+  }
