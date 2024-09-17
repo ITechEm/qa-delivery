@@ -27,8 +27,5 @@ This is a `full-stack` project created by dejwid and `modified by me`.
 The easiest way to `deploy` my project was to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 ## License
-<<<<<<< HEAD
+
 The `qa-delivery` project is licensed under the terms of the MIT license.
-=======
-The `qa-delivery` project is licensed under the terms of the MIT license.
->>>>>>> 2a5c9d458fd4d889a63c203da825f9378f543527
