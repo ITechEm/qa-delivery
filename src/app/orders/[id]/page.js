@@ -49,9 +49,9 @@ export default function OrderPage() {
         <p className="my-6 text-gray-500 text-sm">
           We will call you when your order will arrive on your address.
         </p>
-        
+        <p>
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
-      
+        </p>
         <div className="flex gap-4 text-sm">
           <button className="flex justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded">
             <a 
