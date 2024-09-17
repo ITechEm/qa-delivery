@@ -3,8 +3,10 @@ This is a full-stack project created by dejwid and modified by me.
 ## Scope of this project
 
 ```bash
-✨ Understanding front-end and back-end development better. Having a FE and a BE that communicate, helps me better to understand how an app works.
-✨ The easiest way to explain FE and BE testing is by having a project with FE, API, and DB that communicate between each other.
+✨ Understanding front-end and back-end development better. Having a FE and a BE that communicate,
+   helps me better to understand how an app works.
+✨ The easiest way to explain FE and BE testing is by having a project with FE, API, and DB
+   that communicate between each other.
 ```
 
 ## Technology Stack and Features
