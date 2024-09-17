@@ -1,4 +1,4 @@
-This is a `full-stack` project created by dejwid and modified by `me`.
+This is a `full-stack` project created by dejwid and `modified by me`.
 
 ## Scope of this project
 
