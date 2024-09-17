@@ -66,7 +66,7 @@ export default function OrderPage() {
         <div>Loading order...</div>
       )}
       {order && (
-        <div className="flex grid md:grid-cols-2 md:gap-16 md:block">
+        <div className="flex grid md:grid-cols-2 md:gap-16 ">
           <div>
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
