@@ -22,6 +22,7 @@
     "react-flying-item": "^1.1.2",
     "react-hot-toast": "^2.4.1",
     "stripe": "^14.3.0",
+    "typewriter-effect": "^2.21.0",
     "uniqid": "^5.4.0"
   },
   "devDependencies": {

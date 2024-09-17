@@ -18,11 +18,16 @@ export default function Hero() {
         </p>
         <div className="flex gap-4 text-sm">
           <button className="flex justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded-full">
-            Order now
+            <a 
+              href="/menu"> 
+              Order Now
+              </a>
             <Right />
           </button>
           <button className="flex items-center border-0 gap-2 py-2 text-gray-600 font-semibold">
-            Learn more
+            <a
+            href="/#about">
+              Learn more</a>
             <Right />
           </button>
         </div>

@@ -47,3 +47,23 @@ div.tabs > *.active{
 .flying-button-parent button{
     @apply border-primary bg-primary text-white rounded-full;
 }
+
+/*Typewriter*/
+.main-name {
+    color: green;
+  }
+  
+  .heading-name {
+    display: float; 
+    flex: 1; 
+    color: red;
+  }
+  
+  .buttonStyle {
+    width: '100px';
+    margin: '5px';
+    height: '38px';
+    display: 'flex';
+    alignItems: "center";
+    justifyContent: "left";
+  }
