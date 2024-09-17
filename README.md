@@ -5,7 +5,7 @@ This is a `full-stack` project created by dejwid and `modified by me`.
 ```bash
 ✨ Understanding front-end and back-end development better. Having a FE and a BE that communicate,
    helps me better to understand how an app works.
-✨ The easiest way to explain FE and BE testing is by having a project with FE, API, and DB
+✨ As a QA, the best way to explain FE and BE testing to someone is by having a project with FE, API, and DB
    that communicate between each other.
 ```
 
