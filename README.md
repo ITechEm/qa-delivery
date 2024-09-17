@@ -13,7 +13,7 @@ This is a full-stack project created by dejwid and modified by me.
 
 ```bash
 
-🚀 'JavaScrip' for front-end and back-end
+🚀 "JavaScrip" for front-end and back-end
 ⚡ Postman for backend API
 💾 MongoDB for database
 🧰 Stripe for payments
