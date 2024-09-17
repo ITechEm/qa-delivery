@@ -38,16 +38,16 @@ export default function OrderPage() {
   }
 
   return (
-    <section className=" md:mt-4">
+    <section className="hero md:mt-4">
       <div className="py-8 md:py-12">
         <h1 className="text-5xl font-semibold">
-        Your orde is on the way 
+        Your order is on the way 
           <span className="text-primary">
           <span> </span>...
           </span>
         </h1>
         <p className="my-6 text-gray-500 text-sm">
-          We will call you when your order will arrive on your address.
+          We will call you when your order will arrive on your ddress.
         </p>
         <div className="flex gap-4 text-sm">
           <button className="flex justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded-50">
@@ -59,14 +59,14 @@ export default function OrderPage() {
           </button>
         </div>
       </div>
-      <div className="relative hidden header md:block">
+      <div className="relative hidden md:block">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
       {loadingOrder && (
         <div>Loading order...</div>
       )}
       {order && (
-        <div className="flex grid md:grid-cols-2 md:gap-16 ">
+        <div className="flex grid md:grid-cols-2 md:gap-16 md:block">
           <div>
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
