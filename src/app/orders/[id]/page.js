@@ -62,6 +62,9 @@ export default function OrderPage() {
       <div className="relative hidden md:block">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
+      <div className="relative hidden md:block">
+        <Image src={'/pizza.png'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
+      </div>
       {loadingOrder && (
         <div>Loading order...</div>
       )}
