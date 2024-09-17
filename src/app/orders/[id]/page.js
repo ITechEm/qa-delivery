@@ -57,15 +57,10 @@ export default function OrderPage() {
               </a>
             <Right />
           </button>
-        
         </div>
       </div>
       <div className="relative hidden md:block">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
-      </div>
-
-      <div className="relative hidden md:block">
-        <Image src={'/yourOrder.gif'} layout={'fill'} objectFit={'contain'} alt={'pizza'} />
       </div>
       {loadingOrder && (
         <div>Loading order...</div>
