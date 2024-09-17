@@ -15,7 +15,7 @@ function AuthLinks({status, userName}) {
         </Link>
         <button
           onClick={() => signOut()}
-          className="bg-primary rounded-full text-white px-8 py-2">
+          className="bg-primary rounded text-white px-8 py-2">
           Logout
         </button>
       </>
@@ -25,7 +25,7 @@ function AuthLinks({status, userName}) {
     return (
       <>
         <Link href={'/login'}>Login</Link>
-        <Link href={'/register'} className="bg-primary rounded-full text-white px-8 py-2">
+        <Link href={'/register'} className="bg-primary rounded text-white px-8 py-2">
           Register
         </Link>
       </>
