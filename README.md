@@ -17,6 +17,7 @@ This is a `full-stack` project created by dejwid and `modified by me`.
 ⚡ Postman for backend API
 💾 MongoDB for database
 💳 Stripe for payments
+🎨 Figma for design
 🏭 GitHub for CI/CD
 🚀 Vercel for deployment
 
