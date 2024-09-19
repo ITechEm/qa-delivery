@@ -1,7 +1,7 @@
 ## My footprint in this project
 This is a `full-stack` project created by dejwid and `modified by me`.
 
-`[Figma](https://www.figma.com/design/RWUgo3oeoUkHnKkPN4E1uI/QA-Delivery?node-id=0-1&t=g5JmmlmJHaZiswR4-1)`,
+[Figma](https://www.figma.com/design/RWUgo3oeoUkHnKkPN4E1uI/QA-Delivery?node-id=0-1&t=g5JmmlmJHaZiswR4-1),
 `Front-end` updated, modified and some issue fixed,
 `API` Collection & Environments connected and created with Postman,
 `Database` connected and created with MongoDB.
