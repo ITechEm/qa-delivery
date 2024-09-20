@@ -6,23 +6,12 @@ export default function LoginPage() {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [loginInProgress, setLoginInProgress] = useState(false);
     const [error, setError] = useState('');
-    const isEmailValid = /\S+@\S+\.\S+/.test(email);
-    if (!isEmailValid) {
-      setFormData(prev => ({
-         ...prev,
-         error: "The email is not valid.",
-         sizeText: 8,
-         creatingUser: false
-       }));
-       return;
-     }
-
+    
     const handleInputChange = (ev) => {
         const { name, value } = ev.target;
-        setCredentials(prev => ({ ...prev, [name]: value }));
-        setError(''); // Clear error on input change
+        setCredentials((prev) => ({ ...prev, [name]: value }));
+        setError('');
     };
-
     const handleFormSubmit = async (ev) => {
         ev.preventDefault();
         setLoginInProgress(true);
@@ -45,7 +34,7 @@ export default function LoginPage() {
         } finally {
             setLoginInProgress(false);
             if (!error) {
-                setCredentials({ email: '', password: '' }); // Reset credentials
+                setCredentials({ email: '', password: '' });
             }
         }
     };
@@ -61,7 +50,7 @@ export default function LoginPage() {
                     value={credentials.email}
                     disabled={loginInProgress}
                     onChange={handleInputChange}
-                    required // Add required attribute for better UX
+                    required 
                 />
                 <input
                     type="password"
@@ -70,9 +59,10 @@ export default function LoginPage() {
                     value={credentials.password}
                     disabled={loginInProgress}
                     onChange={handleInputChange}
-                    required // Add required attribute for better UX
+                    required 
                 />
-                {error && <p className="error">{error}</p>} {/* Display error message */}
+                {error && <p className="error">{error}</p>}
+                <p className=" mx-auto ml-2 mb-6"></p>
                 <button disabled={loginInProgress} type="submit">
                     {loginInProgress ? 'Logging in...' : 'Login'}
                 </button>
@@ -80,22 +70,3 @@ export default function LoginPage() {
         </section>
     );
 }
-
-// async function handleFormSubmit(ev) {
-//   ev.preventDefault();
-//   setLoginInProgress(true);
-//   setError(false);
-//   await signIn('credentials', {email, password});
-//   const response = await fetch('/api/auth/signIn', {
-//     method: 'POST',
-//     body: JSON.stringify({email, password, callbackUrl: '/'}),
-//     headers: {'Content-Type': 'application/json'},
-//   });
-//   if (response.ok) {
-//     setLoginInProgress(true)
-//   }
-//   else {
-//     setError(true);
-//   }
-//   setLoginInProgress(false);
-// }

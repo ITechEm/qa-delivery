@@ -78,7 +78,7 @@ export default function RegisterPage() {
 
   return (
     <section className="mt-8">
-      <h2 className="text-center text-5xl mb-6">Register</h2>
+      <h2 className="text-center text-5xl mb-6 neucha">Register</h2>
       {formData.userCreated && (
         <div className="my-4 text-center">
           User created. Now you can{' '}
