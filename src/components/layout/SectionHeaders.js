@@ -4,7 +4,7 @@ export default function SectionHeaders({subHeader,mainHeader}) {
       <p className="uppercase  font-semibold leading-4">
         {subHeader}
       </p>
-      <h2 className="text-4xl">
+      <h2 className="text-4xl neucha bold">
         {mainHeader}
       </h2>
     </>

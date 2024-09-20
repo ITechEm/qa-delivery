@@ -39,7 +39,7 @@ export default function LoginPage() {
                        disabled={loginInProgress}
                        onChange={ev => {
                            setEmail(ev.target.value);
-                           setError('The email address you entered is not connected to an account'); 
+                           setError(''); 
                        }} />
                        
                 
@@ -47,7 +47,7 @@ export default function LoginPage() {
                        disabled={loginInProgress}
                        onChange={ev => {
                            setPassword(ev.target.value);
-                           setError('The password you entered is incorrect');
+                           setError('');
                        }} />
                        
                 {error && <p className="">{error}</p>} {/* Display error message */}

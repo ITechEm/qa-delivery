@@ -76,8 +76,8 @@ export default function CartPage() {
     return (
       <section className="mt-8 text-center ">
         <SectionHeaders mainHeader="Cart" />
-        <p className="mt-4"><strong>Your cart is empty</strong></p>
-        <p className="mt-1">
+        <p className="mt-4 inria"><strong>Your cart is empty</strong></p>
+        <p className="mt-1 inria">
           Looks like you have not added anything to your cart. <br></br>
           Go ahead and explore our menu’s  
         </p>
