@@ -58,6 +58,7 @@ export default function LoginPage() {
     return (
         <section className="mt-8">
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
+            {error && <p className="error">{error}</p>}
             <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
                 <input
                     type="email"
