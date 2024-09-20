@@ -16,36 +16,42 @@ export default function LoginPage() {
 
     const handleFormSubmit = async (ev) => {
         ev.preventDefault();
-        setLoginInProgress(true);
-
-        await signIn('credentials', {email, password, callbackUrl: '/'});
-        setLoginInProgress(false);
-        setError('');
-
+        
+        // Check for empty fields first
         if (!credentials.email || !credentials.password) {
             setError('Email and Password are required!');
-            setLoginInProgress(false);
             return;
         }
 
+        setLoginInProgress(true);
+
         try {
-            // Make an API call using Axios
-            const response = await axios.post('https://spark-qa-delivery.vercel.app/api/login', credentials);
-            
-            // Here you can handle the successful response
-            if (response.data.success) {
-                // Perform actions on successful login, like redirecting or storing tokens
+            // Attempt to sign in
+            const signInResponse = await signIn('credentials', {
+                email: credentials.email, 
+                password: credentials.password, 
+                redirect: false
+            });
+
+            if (signInResponse.error) {
+                setError('Invalid email or password. Please try again.'); // Adjust based on desired error message
             } else {
-                setError(response.data.message); // Adjust based on your API's response structure
+                // Make an API call using Axios
+                const response = await axios.post('https://spark-qa-delivery.vercel.app/api/login', credentials);
+                
+                if (response.data.success) {
+                    // Clear credentials on successful login
+                    setCredentials({ email: '', password: '' });
+                    // Redirect or perform other actions
+                } else {
+                    setError(response.data.message);
+                }
             }
         } catch (error) {
             console.error(error);
             setError('Something went wrong. Please try again.');
         } finally {
             setLoginInProgress(false);
-            if (!error) {
-                setCredentials({ email: '', password: '' });
-            }
         }
     };
 
