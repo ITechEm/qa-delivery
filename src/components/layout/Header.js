@@ -24,9 +24,9 @@ function AuthLinks({status, userName}) {
   if (status === 'unauthenticated') {
     return (
       <>
-        <Link href={'/login'}>Login</Link>
+        <Link href={'/login'} className="text-black"><h1>Login</h1></Link>
         <Link href={'/register'} className="bg-primary rounded text-white px-8 py-2">
-          Register
+          <h1>Register</h1>
         </Link>
       </>
     );
@@ -69,22 +69,22 @@ export default function Header() {
         <div
           onClick={() => setMobileNavOpen(false)}
           className="md:hidden p-4 bg-gray-200 rounded-lg mt-2 flex flex-col gap-2 text-center">
-          <Link href={'/'}>Home</Link>
-          <Link href={'/menu'}>Menu</Link>
-          <Link href={'/#about'}>About</Link>
-          <Link href={'/#contact'}>Contact</Link>
+          <Link href={'/'}><h1>Home</h1></Link>
+          <Link href={'/menu'}><h1>Menu</h1></Link>
+          <Link href={'/#about'}><h1>About</h1></Link>
+          <Link href={'/#contact'}><h1>Contact</h1></Link>
           <AuthLinks status={status} userName={userName} />
         </div>
       )}
       <div className="hidden md:flex items-center justify-between">
-        <nav className="flex items-center gap-8 text-gray-500 font-semibold">
+        <nav className="flex items-center gap-7  font-bold">
           <Link className="text-primary font-semibold text-2xl" href={'/'}>
           QA Delivery
           </Link>
-          <Link href={'/'}>Home</Link>
-          <Link href={'/menu'}>Menu</Link>
-          <Link href={'/#about'}>About</Link>
-          <Link href={'/#contact'}>Contact</Link>
+          <Link href={'/'}><h1>Home</h1></Link>
+          <Link href={'/menu'}><h1>Menu</h1></Link>
+          <Link href={'/#about'}><h1>About</h1></Link>
+          <Link href={'/#contact'}><h1>Contact</h1></Link>
         </nav>
         <nav className="flex items-center gap-4 text-gray-500 font-semibold">
           <AuthLinks status={status} userName={userName} />

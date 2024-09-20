@@ -48,22 +48,29 @@ div.tabs > *.active{
     @apply border-primary bg-primary text-white rounded-full;
 }
 
-/*Typewriter*/
-.main-name {
-    color: green;
+
+/*FONTS*/
+@font-face {
+    font-family: 'neucha';
+    src: url(fonts/Neucha-Regular.ttf);
   }
+h2{
+    font-family: "neucha";
+}
+
+@font-face {
+    font-family: 'inria-sans';
+    src: url(fonts/InriaSans-Regular.ttf);
+}
+p{
+    font-family: "inria-sans";
+}
+
+@font-face {
+    font-family: 'inknut-antikua';
+    src: url(fonts/InknutAntiqua-Regular.ttf);
+}
+h1{
+    font-family: "inknut-antikua";
+}
   
-  .heading-name {
-    display: float; 
-    flex: 1; 
-    color: red;
-  }
-  
-  .buttonStyle {
-    width: '100px';
-    margin: '5px';
-    height: '38px';
-    display: 'flex';
-    alignItems: "center";
-    justifyContent: "left";
-  }

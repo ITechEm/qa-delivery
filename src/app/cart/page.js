@@ -68,15 +68,23 @@ export default function CartPage() {
     await toast.promise(promise, {
       loading: 'Preparing your order...',
       success: 'Redirecting to payment...',
-      error: ' went wrong... Please try again later',
+      error: 'Something went wrong... Please try again later',
     })
   }
 
   if (cartProducts?.length === 0) {
     return (
-      <section className="mt-8 text-center">
+      <section className="mt-8 text-center ">
         <SectionHeaders mainHeader="Cart" />
-        <p className="mt-4">Your shopping cart is empty 😔</p>
+        <p className="mt-4"><strong>Your cart is empty</strong></p>
+        <p className="mt-1">
+          Looks like you have not added anything to your cart. <br></br>
+          Go ahead and explore our menu’s  
+        </p>
+        <div className="md:block p-8">
+        <Image src={'/empty_cart.png'} objectFit={'contain'} alt={'empty_cart'} width={200} height={200} className="mx-auto"/>
+        </div>
+       
       </section>
     );
   }
@@ -113,7 +121,7 @@ export default function CartPage() {
           </div>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg">
-          <h2>Checkout</h2>
+          <p>Checkout</p>
           <form onSubmit={proceedToCheckout}>
             <AddressInputs
               addressProps={address}

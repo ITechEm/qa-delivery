@@ -42,9 +42,9 @@ export default function RegisterPage() {
   }
   return (
     <section className="mt-8">
-      <h1 className="text-center text-primary text-4xl mb-4">
+      <h2 className="text-center  text-5xl mb-6">
         Register
-      </h1>
+      </h2>
       {userCreated && (
         <div className="my-4 text-center">
           User created.<br />
@@ -65,9 +65,11 @@ export default function RegisterPage() {
         <input type="password" placeholder="Password" value={password}
                disabled={creatingUser}
                 onChange={ev => setPassword(ev.target.value)}/>
+                <p className="text-left text-graylight text-xs mx-auto ml-2 mb-4">Password must be at least 6 characters</p>
         <button type="submit" disabled={creatingUser}>
           Register
         </button>
+        
         {/* <div className="my-4 text-center text-gray-500">
           or login with provider
         </div>
@@ -77,9 +79,10 @@ export default function RegisterPage() {
           <Image src={'/google.png'} alt={''} width={24} height={24} />
           Login with google
         </button> */}
-        <div className="text-center my-4 text-gray-500 border-t pt-4">
-          Existing account?{' '}
+        <div className="text-center my-4 text-gray-500 pt-4">
+          <p>Existing account?{' '}
           <Link className="underline" href={'/login'}>Login here &raquo;</Link>
+          </p>
         </div>
       </form>
     </section>
