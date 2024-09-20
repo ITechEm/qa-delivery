@@ -1,20 +1,12 @@
 import clientPromise from "@/libs/mongoConnect";
-import { UserInfo } from "@/models/UserInfo";
+import {UserInfo} from "@/models/UserInfo";
 import bcrypt from "bcrypt";
 import * as mongoose from "mongoose";
-import { User } from '@/models/User';
-import NextAuth, { getServerSession } from "next-auth";
+import {User} from '@/models/User';
+import NextAuth, {getServerSession} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
-let isConnected = false;
-
-async function connectToDatabase() {
-  if (!isConnected) {
-    await mongoose.connect(process.env.MONGO_URL);
-    isConnected = true;
-  }
-}
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
 
 export const authOptions = {
   secret: process.env.SECRET,
@@ -24,6 +16,7 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
   providers: [
+
     CredentialsProvider({
       name: 'Credentials',
       id: 'credentials',
@@ -31,23 +24,20 @@ export const authOptions = {
         username: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
+      
       async authorize(credentials, req) {
-        const email = credentials?.username; // Fixed key access
+        const email = credentials?.email;
         const password = credentials?.password;
 
-        await connectToDatabase();
-        
-        try {
-          const user = await User.findOne({ email });
-          if (user && await bcrypt.compare(password, user.password)) {
-            return user;
-          }
-        } catch (error) {
-          console.error("Error during authorization:", error);
-          return null;
+        mongoose.connect(process.env.MONGO_URL);
+        const user = await User.findOne({email});
+        const passwordOk = user && bcrypt.compareSync(password, user.password);
+
+        if (passwordOk) {
+          return user;
         }
 
-        return null;
+        return null
       }
     })
   ],
@@ -59,19 +49,17 @@ export async function isAdmin() {
   if (!userEmail) {
     return false;
   }
-  
-  try {
-    const userInfo = await UserInfo.findOne({ email: userEmail });
-    return userInfo ? userInfo.admin : false;
-  } catch (error) {
-    console.error("Error checking admin status:", error);
+  const userInfo = await UserInfo.findOne({email:userEmail});
+  if (!userInfo) {
     return false;
   }
+  return userInfo.admin;
 }
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST }
+
 
 ///////////////////////////////////////////////////////////////////
 
