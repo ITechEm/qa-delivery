@@ -10,13 +10,7 @@ export default function LoginPage() {
 
   async function handleFormSubmit(ev) {
     ev.preventDefault();
-
     await signIn('credentials', {email, password, callbackUrl: '/'});
-// Check for empty fields first
-if (!email || !password) {
-  setError('Email and Password are required!');
-  return;
-}
     setLoginInProgress(false);
   }
 
