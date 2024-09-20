@@ -18,14 +18,10 @@ export default function LoginPage() {
         ev.preventDefault();
         
         // Check for empty fields first
-        if (!credentials.email) {
-            setError('You have entered an invalid email');
+        if (!credentials.email || !credentials.password) {
+            setError('Email and Password are required!');
             return;
         }
-        if (!credentials.password) {
-          setError('You have entered an invalid password');
-          return;
-      }
 
         setLoginInProgress(true);
 
@@ -63,7 +59,7 @@ export default function LoginPage() {
         <section className="mt-8">
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
             {error && <p className="error text-center mb-4">{error}</p>}
-            <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
+            <form className="max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
                 <input
                     type="email"
                     name="email"
@@ -84,7 +80,7 @@ export default function LoginPage() {
                 />
                 
                 <p className=" mx-auto ml-2 mb-6"></p>
-                <button disabled={loginInProgress} type="submit">
+                <button disabled={loginInProgress} type="submit"> Login
                     {loginInProgress ? 'Logging in...' : 'Login'}
                 </button>
             </form>
