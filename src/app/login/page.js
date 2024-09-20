@@ -6,6 +6,16 @@ export default function LoginPage() {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [loginInProgress, setLoginInProgress] = useState(false);
     const [error, setError] = useState('');
+    const isEmailValid = /\S+@\S+\.\S+/.test(email);
+    if (!isEmailValid) {
+      setFormData(prev => ({
+         ...prev,
+         error: "The email is not valid.",
+         sizeText: 8,
+         creatingUser: false
+       }));
+       return;
+     }
 
     const handleInputChange = (ev) => {
         const { name, value } = ev.target;
@@ -17,6 +27,12 @@ export default function LoginPage() {
         ev.preventDefault();
         setLoginInProgress(true);
         setError('');
+
+        if (!credentials.email || !credentials.password) {
+            setError('Email and Password are required!');
+            setLoginInProgress(false);
+            return;
+        }
 
         try {
             const result = await signIn('credentials', { ...credentials, callbackUrl: '/' });
@@ -45,6 +61,7 @@ export default function LoginPage() {
                     value={credentials.email}
                     disabled={loginInProgress}
                     onChange={handleInputChange}
+                    required // Add required attribute for better UX
                 />
                 <input
                     type="password"
@@ -53,6 +70,7 @@ export default function LoginPage() {
                     value={credentials.password}
                     disabled={loginInProgress}
                     onChange={handleInputChange}
+                    required // Add required attribute for better UX
                 />
                 {error && <p className="error">{error}</p>} {/* Display error message */}
                 <button disabled={loginInProgress} type="submit">
