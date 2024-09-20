@@ -1,6 +1,6 @@
 'use client'; 
-import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 import axios from 'axios'; // Import Axios
 
 export default function LoginPage() { 
@@ -17,6 +17,9 @@ export default function LoginPage() {
     const handleFormSubmit = async (ev) => {
         ev.preventDefault();
         setLoginInProgress(true);
+
+        await signIn('credentials', {email, password, callbackUrl: '/'});
+        setLoginInProgress(false);
         setError('');
 
         if (!credentials.email || !credentials.password) {
