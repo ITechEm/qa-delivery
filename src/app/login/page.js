@@ -10,11 +10,10 @@ export default function LoginPage() {
 
   async function handleFormSubmit(ev) {
     ev.preventDefault();
-    setLoginInProgress(true);
 
     await signIn('credentials', {email, password, callbackUrl: '/'});
 // Check for empty fields first
-if (!credentials.email || !credentials.password) {
+if (!email || !password) {
   setError('Email and Password are required!');
   return;
 }
@@ -24,24 +23,24 @@ if (!credentials.email || !credentials.password) {
     return (
         <section className="mt-8">
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
-            {error && <p className="error text-center mb-4">{error}</p>}
+            
             <form className="max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
                 <input
                     type="email"
                     name="email"
                     placeholder="Email"
-                    value={credentials.email}
+                    value={email}
                     disabled={loginInProgress}
-                    onChange={handleInputChange}
+                    onChange={ev => setEmail(ev.target.value)}
                     required 
                 />
                 <input
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={credentials.password}
+                    value={password}
                     disabled={loginInProgress}
-                    onChange={handleInputChange}
+                    onChange={ev => setPassword(ev.target.value)}
                     required 
                 />
                 
