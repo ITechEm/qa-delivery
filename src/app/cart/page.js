@@ -95,7 +95,7 @@ export default function CartPage() {
         <SectionHeaders mainHeader="Cart" />
       </div>
       <div className="mt-8 grid gap-8 grid-cols-2">
-        <div>
+        <div className="inknut-antikua">
           {cartProducts?.length === 0 && (
             <div>No products in your shopping cart</div>
           )}
@@ -109,14 +109,14 @@ export default function CartPage() {
           ))}
           <div className="py-2 pr-16 flex justify-end items-center">
             <div className="text-gray-500">
-              Subtotal:<br />
+              <p>Subtotal:<br />
               Delivery:<br />
-              Total:
+              Total:</p>
             </div>
             <div className="font-semibold pl-2 text-right">
-              €{subtotal}<br />
+             <h1> €{subtotal}<br />
               €5<br />
-              €{subtotal + 5}
+              €{subtotal + 5}</h1>
             </div>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function CartPage() {
               addressProps={address}
               setAddressProp={handleAddressChange}
             />
-            <button type="submit">Pay €{subtotal+5}</button>
+            <button type="submit"><h1>Pay €{subtotal+5}</h1></button>   
           </form>
         </div>
       </div>

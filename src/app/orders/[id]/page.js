@@ -40,12 +40,12 @@ export default function OrderPage() {
   return (
     <section className="hero md:mt-4">
       <div className="py-8 md:py-12">
-        <h1 className="text-5xl font-semibold">
+        <h2 className="text-5xl font-semibold">
         Your order is on the way 
           <span className="text-primary">
           <span> </span>...
           </span>
-        </h1>
+        </h2>
         <p className="my-6 text-gray-500 text-sm">
           We will call you when your order will arrive on your address.
         </p>

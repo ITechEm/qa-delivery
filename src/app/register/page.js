@@ -1,89 +1,109 @@
 "use client";
-import {signIn} from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import {useState} from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [creatingUser, setCreatingUser] = useState(false);
-  const [userCreated, setUserCreated] = useState(false);
-  const [error, setError] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    creatingUser: false,
+    userCreated: false,
+    error: null,
+  });
+
   async function handleFormSubmit(ev) {
     ev.preventDefault();
-    setCreatingUser(true);
-    setError(false);
-    setUserCreated(false);
 
-    let response;
+    setFormData(prev => ({ ...prev, creatingUser: true, error: null, userCreated: false }));
 
-    await fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("Response: ", res);
-        response = res;
-      })
-      .catch((err) => {
-        console.error("Error: ", err);
-        response = err;
+    const { email, password } = formData;
+    const isEmailValid = /\S+@\S+\.\S+/.test(email);
+    const isPasswordValid = password.length >= 6;
+
+    if ( !isPasswordValid) {
+      setFormData(prev => ({ ...prev, error: "Password must be at least 6 characters", creatingUser: false }));
+      return;
+    }
+
+    try {
+      // Assume checkPassword is a function defined elsewhere
+      // let userPassword = prompt("Enter your password:");
+      // checkPassword(userPassword);
+      const res = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
       });
 
-    if (response._id) {
-      setUserCreated(true);
-    } else {
-      setError(true);
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      if (data._id) {
+        setFormData(prev => ({ ...prev, userCreated: true }));
+      } else {
+        setFormData(prev => ({ ...prev, error: "User creation failed. Please try again." }));
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      setFormData(prev => ({ ...prev, error: "The user is already registered"}));
+    } finally {
+      setFormData(prev => ({ ...prev, creatingUser: false }));
     }
-    setCreatingUser(false);
   }
+
+  const handleChange = (ev) => {
+    const { name, value } = ev.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   return (
     <section className="mt-8">
-      <h2 className="text-center  text-5xl mb-6">
-        Register
-      </h2>
-      {userCreated && (
+      <h2 className="text-center text-5xl mb-6">Register</h2>
+      {formData.userCreated && (
         <div className="my-4 text-center">
-          User created.<br />
-          Now you can{' '}
+          User created. Now you can{' '}
           <Link className="underline" href={'/login'}>Login &raquo;</Link>
         </div>
       )}
-      {error && (
-        <div className="my-4 text-center">
-          An error has occurred.<br />
-          Please try again later
+
+      {formData.error && (
+        <div className="my-4 text-center inria">
+          {formData.error}
         </div>
       )}
+
       <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
-        <input type="email" placeholder="Email" value={email}
-               disabled={creatingUser}
-               onChange={ev => setEmail(ev.target.value)} />
-        <input type="password" placeholder="Password" value={password}
-               disabled={creatingUser}
-                onChange={ev => setPassword(ev.target.value)}/>
-                <p className="text-left text-graylight text-xs mx-auto ml-2 mb-4">Password must be at least 6 characters</p>
-        <button type="submit" disabled={creatingUser}>
-          Register
+        <label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            disabled={formData.creatingUser}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            disabled={formData.creatingUser}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <p className="text-left text-gray-500 text-xs mx-auto ml-2 mb-6 inria"></p>
+        <button type="submit" disabled={formData.creatingUser}>
+          {formData.creatingUser ? 'Registering...' : 'Register'}
         </button>
-        
-        {/* <div className="my-4 text-center text-gray-500">
-          or login with provider
-        </div>
-        <button
-          onClick={() => signIn('google', {callbackUrl:'/'})}
-          className="flex gap-4 justify-center">
-          <Image src={'/google.png'} alt={''} width={24} height={24} />
-          Login with google
-        </button> */}
-        <div className="text-center my-4 text-gray-500 pt-4">
-          <p>Existing account?{' '}
-          <Link className="underline" href={'/login'}>Login here &raquo;</Link>
-          </p>
-        </div>
       </form>
     </section>
   );

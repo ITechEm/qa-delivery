@@ -58,11 +58,16 @@ h2{
     font-family: "neucha";
 }
 
+.neucha{
+    font-family: "neucha";
+}
+
 @font-face {
     font-family: 'inria-sans';
     src: url(fonts/InriaSans-Regular.ttf);
 }
-p{
+
+.inria{
     font-family: "inria-sans";
 }
 
@@ -74,11 +79,14 @@ h1{
     font-family: "inknut-antikua";
 }
 
+.inknut{
+    font-family: "inknut-antikua";
+}
+
 @font-face {
     font-family: 'pallete-mosaic';
     src: url(fonts/PaletteMosaic-Regular.ttf);
 }
-logo{
-    font-family: "pallete-mosaic";
+.pallete-mosaic {
+    font-family: 'pallete-mosaic';
 }
- 
