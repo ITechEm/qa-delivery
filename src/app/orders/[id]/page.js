@@ -59,14 +59,14 @@ export default function OrderPage() {
           </button>
         </div>
       </div>
-      <div className="relative hidden md:block grid">
+      <div className="relative hidden md:block">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
       {loadingOrder && (
         <div>Loading order...</div>
       )}
       {order && (
-        <div className="flex grid md:grid-cols-2 md:gap-16 md:block">
+        <div className="flex  md:grid-cols-2 md:gap-16 md:block">
           <div>
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
