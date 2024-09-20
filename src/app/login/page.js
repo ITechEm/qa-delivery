@@ -32,7 +32,7 @@ if (!email || !password) {
                     value={email}
                     disabled={loginInProgress}
                     onChange={ev => setEmail(ev.target.value)}
-                    required 
+                    
                 />
                 <input
                     type="password"
@@ -41,13 +41,11 @@ if (!email || !password) {
                     value={password}
                     disabled={loginInProgress}
                     onChange={ev => setPassword(ev.target.value)}
-                    required 
+               
                 />
                 
                 <p className=" mx-auto ml-2 mb-6"></p>
-                <button disabled={loginInProgress} type="submit">
-                    {loginInProgress ? 'Logging in...' : 'Login'}
-                </button>
+                <button disabled={loginInProgress} type="submit">Login</button>
             </form>
         </section>
     );
