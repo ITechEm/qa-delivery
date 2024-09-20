@@ -23,7 +23,7 @@ export default function LoginPage() {
             return;
         }
 
-        setLoginInProgress(true);
+        setLoginInProgress(false);
 
         try {
             // Attempt to sign in
