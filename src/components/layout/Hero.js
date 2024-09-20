@@ -4,12 +4,12 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section className="hero md:mt-4">
-      <div className="py-8 md:py-12">
-        <h2 className="text-5xl ">
+      <div className="py-8 md:py-12 ">
+        <h2 className="text-5xl neucha">
           Everything<br />
           is better<br />
           with a&nbsp;
-          <span className="text-primary">
+          <span className="text-primary neucha">
             Pizza
           </span>
         </h2>

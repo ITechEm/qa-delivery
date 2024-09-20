@@ -15,8 +15,8 @@ function AuthLinks({status, userName}) {
         </Link>
         <button
           onClick={() => signOut()}
-          className="bg-primary rounded text-white px-8 py-2">
-         <h1>Logout</h1> 
+          className="bg-primary rounded text-white px-8 py-2 inknut">
+         Logout
         </button>
       </>
     );
@@ -24,9 +24,9 @@ function AuthLinks({status, userName}) {
   if (status === 'unauthenticated') {
     return (
       <>
-        <Link href={'/login'} className="text-black"><h1>Login</h1></Link>
-        <Link href={'/register'} className="bg-primary rounded text-white px-8 py-2">
-          <h1>Register</h1>
+        <Link href={'/login'} className="text-black inknut">Login</Link>
+        <Link href={'/register'} className="bg-primary rounded text-white px-8 py-2 inknut">
+          Register
         </Link>
       </>
     );

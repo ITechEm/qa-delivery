@@ -1,46 +1,63 @@
 'use client';
-import {signIn} from "next-auth/react";
-import Image from "next/image";
-import {useState} from "react";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginInProgress, setLoginInProgress] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginInProgress, setLoginInProgress] = useState(false);
+    const [error, setError] = useState('');
 
-  async function handleFormSubmit(ev) {
-    ev.preventDefault();
-    setLoginInProgress(true);
+    async function handleFormSubmit(ev) {
+        ev.preventDefault();
+        setLoginInProgress(true);
+        setError('');
 
-    await signIn('credentials', {email, password, callbackUrl: '/'});
+        try {
+            const result = await signIn('credentials', { email, password, callbackUrl: '/' });
+            if (result.error) {
+                setError(result.error);
+            }
+        } catch (error) {
+            console.error(error);
+            setError('An unexpected error occurred. Please try again.');
+        } finally {
+            setLoginInProgress(false);
+            if (!error) {
+                setEmail('');
+                setPassword('');
+            }
+        }
+    }
 
-    setLoginInProgress(false);
-  }
-
-  return (
-    <section className="mt-8">
-      <h1 className="text-center text-primary text-4xl mb-4">
-        Login
-      </h1>
-      <form className="max-w-xs mx-auto" onSubmit={handleFormSubmit}>
-        <input type="email" name="email" placeholder="Email" value={email}
-               disabled={loginInProgress}
-               onChange={ev => setEmail(ev.target.value)} />
-        <input type="password" name="password" placeholder="Password" value={password}
-               disabled={loginInProgress}
-               onChange={ev => setPassword(ev.target.value)}/>
-        <button disabled={loginInProgress} type="submit">Login</button>
-        {/* <div className="my-4 text-center text-gray-500">
-          or login with provider
-        </div>
-        <button type="button" onClick={() => signIn('google', {callbackUrl: '/'})}
-                className="flex gap-4 justify-center">
-          <Image src={'/google.png'} alt={''} width={24} height={24} />
-          Login with google
-        </button> */}
-      </form>
-    </section>
-  );
+    return (
+        <section className="mt-8">
+            <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
+            <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
+                
+                <input type="email" id="email" placeholder="Email" value={email}
+                       disabled={loginInProgress}
+                       onChange={ev => {
+                           setEmail(ev.target.value);
+                           setError('The email address you entered is not connected to an account'); 
+                       }} />
+                       
+                
+                <input type="password" id="password" placeholder="Password" value={password}
+                       disabled={loginInProgress}
+                       onChange={ev => {
+                           setPassword(ev.target.value);
+                           setError('The password you entered is incorrect');
+                       }} />
+                       
+                {error && <p className="">{error}</p>} {/* Display error message */}
+                <p className=" mx-auto ml-2 mb-6"></p>
+                <button disabled={loginInProgress} type="submit">
+                    {loginInProgress ? 'Logging in...' : 'Login'}
+                </button>
+            </form>
+        </section>
+    );
 }
 
 // async function handleFormSubmit(ev) {

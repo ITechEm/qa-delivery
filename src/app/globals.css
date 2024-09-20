@@ -54,10 +54,6 @@ div.tabs > *.active{
     font-family: 'neucha';
     src: url(fonts/Neucha-Regular.ttf);
   }
-h2{
-    font-family: "neucha";
-}
-
 .neucha{
     font-family: "neucha";
 }
@@ -66,7 +62,6 @@ h2{
     font-family: 'inria-sans';
     src: url(fonts/InriaSans-Regular.ttf);
 }
-
 .inria{
     font-family: "inria-sans";
 }
@@ -75,10 +70,6 @@ h2{
     font-family: 'inknut-antikua';
     src: url(fonts/InknutAntiqua-Regular.ttf);
 }
-h1{
-    font-family: "inknut-antikua";
-}
-
 .inknut{
     font-family: "inknut-antikua";
 }
@@ -89,4 +80,12 @@ h1{
 }
 .pallete-mosaic {
     font-family: 'pallete-mosaic';
+}
+
+@font-face {
+    font-family: 'inika';
+    src: url(fonts/Inika-Regular.ttf);
+}
+.inika {
+    font-family: 'inika';
 }

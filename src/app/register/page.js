@@ -21,10 +21,25 @@ export default function RegisterPage() {
 
     const { email, password } = formData;
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
-    const isPasswordValid = password.length >= 6;
+    const isPasswordValid = password.length >= 6 && password.length <= 12;
+    
 
-    if ( !isPasswordValid) {
-      setFormData(prev => ({ ...prev, error: "Password must be at least 6 characters", creatingUser: false }));
+    if (!isPasswordValid) {
+      setFormData(prev => ({
+          ...prev,
+          error: "Password must be between 6 and 12 characters",
+          sizeText: 8, 
+          creatingUser: false
+      }));
+      return;
+    }
+     if (!isEmailValid) {
+     setFormData(prev => ({
+        ...prev,
+        error: "The email is not valid.",
+        sizeText: 8,
+        creatingUser: false
+      }));
       return;
     }
 
@@ -77,8 +92,8 @@ export default function RegisterPage() {
         </div>
       )}
 
-      <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
-        <label>
+      <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
+        
           <input
             type="email"
             name="email"
@@ -88,8 +103,6 @@ export default function RegisterPage() {
             onChange={handleChange}
             required
           />
-        </label>
-        <label>
           <input
             type="password"
             name="password"
@@ -98,9 +111,10 @@ export default function RegisterPage() {
             disabled={formData.creatingUser}
             onChange={handleChange}
             required
+            minLength={0}
+            maxLength={15}
           />
-        </label>
-        <p className="text-left text-gray-500 text-xs mx-auto ml-2 mb-6 inria"></p>
+        <p className=" mx-auto ml-2 mb-6"></p>
         <button type="submit" disabled={formData.creatingUser}>
           {formData.creatingUser ? 'Registering...' : 'Register'}
         </button>

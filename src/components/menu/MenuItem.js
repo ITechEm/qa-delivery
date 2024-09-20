@@ -66,14 +66,14 @@ export default function MenuItem(menuItem) {
                 src={image}
                 alt={name}
                 width={300} height={200}
-                className="mx-auto" />
+                className="mx-auto mb-6" />
               <h2 className="text-lg font-bold text-center mb-2">{name}</h2>
               <p className="text-center text-gray-500 text-sm mb-2">
                 {description}
               </p>
               {sizes?.length > 0 && (
                 <div className="py-2">
-                  <h3 className="text-center text-gray-700">Pick your size</h3>
+                  <h3 className="text-center text-gray-700 inter mb-2 bold">Pick your size</h3>
                   {sizes.map(size => (
                     <label
                       key={size._id}
@@ -90,7 +90,7 @@ export default function MenuItem(menuItem) {
               )}
               {extraIngredientPrices?.length > 0 && (
                 <div className="py-2">
-                  <h3 className="text-center text-gray-700">Any extras?</h3>
+                  <h3 className="text-center text-gray-700 inter mb-2">Any extras?</h3>
                   {extraIngredientPrices.map(extraThing => (
                     <label
                       key={extraThing._id}
@@ -109,13 +109,13 @@ export default function MenuItem(menuItem) {
                 targetTop={'5%'}
                 targetLeft={'95%'}
                 src={image}>
-                <div className="primary sticky bottom-2"
+                <div className=" sticky bottom-2 inria " //sortiment button
                      onClick={handleAddToCartButtonClick}>
                   Add to cart €{selectedPrice}
                 </div>
               </FlyingButton>
               <button
-                className="mt-2"
+                className="mt-2 inria"
                 onClick={() => setShowPopup(false)}>
                 Cancel
               </button>

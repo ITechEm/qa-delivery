@@ -95,7 +95,7 @@ export default function CartPage() {
         <SectionHeaders mainHeader="Cart" />
       </div>
       <div className="mt-8 grid gap-8 grid-cols-2">
-        <div className="inknut-antikua">
+        <div className="inika">
           {cartProducts?.length === 0 && (
             <div>No products in your shopping cart</div>
           )}
@@ -107,27 +107,27 @@ export default function CartPage() {
               onRemove={removeCartProduct}
             />
           ))}
-          <div className="py-2 pr-16 flex justify-end items-center">
+          <div className="py-2 pr-16 flex justify-end items-center inika">
             <div className="text-gray-500">
-              <p>Subtotal:<br />
+              Subtotal:<br />
               Delivery:<br />
-              Total:</p>
+              Total:
             </div>
-            <div className="font-semibold pl-2 text-right">
-             <h1> €{subtotal}<br />
+            <div className="font-semibold pl-2 text-right inknut">
+              €{subtotal}<br />
               €5<br />
-              €{subtotal + 5}</h1>
+              €{subtotal + 5}
             </div>
           </div>
         </div>
-        <div className="bg-gray-100 p-4 rounded-lg">
-          <p>Checkout</p>
+        <div className="bg-gray-100 p-4 rounded-lg inika">
+          Checkout
           <form onSubmit={proceedToCheckout}>
             <AddressInputs
               addressProps={address}
               setAddressProp={handleAddressChange}
             />
-            <button type="submit"><h1>Pay €{subtotal+5}</h1></button>   
+            <button type="submit">Pay €{subtotal+5}</button>   
           </form>
         </div>
       </div>

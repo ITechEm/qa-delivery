@@ -59,7 +59,7 @@ export default function OrderPage() {
           </button>
         </div>
       </div>
-      <div className="relative hidden md:block">
+      <div className="relative hidden md:block grid">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
       {loadingOrder && (
@@ -71,7 +71,7 @@ export default function OrderPage() {
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
             ))}
-            <div className="text-right py-2 text-gray-500">
+            <div className="text-right py-2 text-gray-500 inkika">
               Subtotal:
               <span className="text-black font-bold inline-block w-8">€{subtotal}</span>
               <br />
