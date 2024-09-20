@@ -19,14 +19,17 @@ export default function Home() {
           
         </div>
       </section>
-      <section className="text-center my-8" id="contact">
+      <section className="text-center my-8 mt-12" id="contact">
         <SectionHeaders
           subHeader={'Don\'t hesitate'}
           mainHeader={<a>Contact <span className="text-primary">Us</span></a>}
         />
-        <div className="mt-8">
+        <div className=" mt-6">
           <p className="text-4xl underline ">
             +46 738 123 123
+          </p>
+          <p className="text-2xl mt-2">
+            qa_delivery@email.com
           </p>
         </div>
       </section>
