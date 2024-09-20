@@ -39,7 +39,7 @@ export default function UserForm({user,onSave}) {
           })
         }
       >
-        <label>
+        <label className="ml-2">
           First and last name
         </label>
         <input

@@ -11,7 +11,7 @@ export default function Home() {
       <section className="text-center my-16 mt-12 mb-8" id="about">
         <SectionHeaders
           subHeader={'Our story'}
-          mainHeader={<a>Abaut <span className="text-primary">Us</span></a>}
+          mainHeader={<a>About <span className="text-primary">Us</span></a>}
         />
         <div className=" max-w-md mx-auto mt-6 flex flex-col gap-4">
           <p>We believe in produce. Tasty produce. Produce like:</p>

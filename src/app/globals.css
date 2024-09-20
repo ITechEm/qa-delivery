@@ -73,4 +73,12 @@ p{
 h1{
     font-family: "inknut-antikua";
 }
-  
+
+@font-face {
+    font-family: 'pallete-mosaic';
+    src: url(fonts/PaletteMosaic-Regular.ttf);
+}
+logo{
+    font-family: "pallete-mosaic";
+}
+ 
