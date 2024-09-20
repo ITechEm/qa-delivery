@@ -57,7 +57,7 @@ export default function LoginPage() {
 
     return (
         <section className="mt-8">
-            <h1 className="text-center text-5xl mb-6 neucha"></h1>
+            <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
             {error && <p className="error text-center mb-4">{error}</p>}
             <form className="max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
                 <input
