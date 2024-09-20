@@ -66,12 +66,12 @@ export default function OrderPage() {
         <div>Loading order...</div>
       )}
       {order && (
-        <div className="flex  md:grid-cols-2 md:gap-16 md:block">
+        <div className="flex grid md:grid-cols-2 md:gap-16 md:block inika">
           <div>
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
             ))}
-            <div className="text-right py-2 text-gray-500 inkika">
+            <div className="text-right py-2 text-gray-500 inika">
               Subtotal:
               <span className="text-black font-bold inline-block w-8">€{subtotal}</span>
               <br />
