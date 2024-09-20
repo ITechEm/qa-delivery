@@ -16,13 +16,13 @@ export default function LoginPage() {
 
     const handleFormSubmit = async (ev) => {
         ev.preventDefault();
-        
+        setLoginInProgress(true);
         // Check for empty fields first
         if (!credentials.email || !credentials.password) {
             setError('Email and Password are required!');
             return;
         }
-
+        
         setLoginInProgress(false);
 
         try {
