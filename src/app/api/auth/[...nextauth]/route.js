@@ -7,15 +7,6 @@ import NextAuth, { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
-let isConnected = false;
-
-async function connectToDatabase() {
-  if (!isConnected) {
-    await mongoose.connect(process.env.MONGO_URL);
-    isConnected = true;
-  }
-}
-
 export const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -24,6 +15,11 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60 // 30 days
   },
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      
+    }),
     CredentialsProvider({
       name: 'Credentials',
       id: 'credentials',
@@ -31,23 +27,20 @@ export const authOptions = {
         username: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
+      
       async authorize(credentials, req) {
-        const email = credentials?.username; // Fixed key access
+        const email = credentials?.email;
         const password = credentials?.password;
 
-        await connectToDatabase();
-        
-        try {
-          const user = await User.findOne({ email });
-          if (user && await bcrypt.compare(password, user.password)) {
-            return user;
-          }
-        } catch (error) {
-          console.error("Error during authorization:", error);
-          return null;
+        mongoose.connect(process.env.MONGO_URL);
+        const user = await User.findOne({email});
+        const passwordOk = user && bcrypt.compareSync(password, user.password);
+
+        if (passwordOk) {
+          return user;
         }
 
-        return null;
+        return null
       }
     })
   ],
@@ -59,49 +52,18 @@ export async function isAdmin() {
   if (!userEmail) {
     return false;
   }
-  
-  try {
-    const userInfo = await UserInfo.findOne({ email: userEmail });
-    return userInfo ? userInfo.admin : false;
-  } catch (error) {
-    console.error("Error checking admin status:", error);
+  const userInfo = await UserInfo.findOne({email:userEmail});
+  if (!userInfo) {
     return false;
   }
+  return userInfo.admin;
 }
 
-// New API Route to Get User Info
-export async function getUserInfo(req, res) {
-  const session = await getServerSession(authOptions);
-  
-  if (!session) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  try {
-    const user = await User.findOne({ email: session.user.email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    return res.status(200).json(user);
-  } catch (error) {
-    console.error("Error fetching user information:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
-  }
-}
-
-// Modify the handler export to include the new API function
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST, getUserInfo as GET_USER_INFO };
+export { handler as GET, handler as POST }
 
-// In your API routes file, you can define how to handle this new route:
-export default async function apiHandler(req, res) {
-  if (req.method === 'GET_USER_INFO') {
-    return getUserInfo(req, res)
-  }
-  
-  return res.status(405).json({ message: "Method Not Allowed" });
-}
+
 
 
 
