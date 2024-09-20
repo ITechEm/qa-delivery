@@ -3,18 +3,23 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [credentials, setCredentials] = useState({ email: '', password: '' });
     const [loginInProgress, setLoginInProgress] = useState(false);
     const [error, setError] = useState('');
 
-    async function handleFormSubmit(ev) {
+    const handleInputChange = (ev) => {
+        const { name, value } = ev.target;
+        setCredentials(prev => ({ ...prev, [name]: value }));
+        setError(''); // Clear error on input change
+    };
+
+    const handleFormSubmit = async (ev) => {
         ev.preventDefault();
         setLoginInProgress(true);
         setError('');
 
         try {
-            const result = await signIn('credentials', { email, password, callbackUrl: '/' });
+            const result = await signIn('credentials', { ...credentials, callbackUrl: '/' });
             if (result.error) {
                 setError(result.error);
             }
@@ -24,34 +29,32 @@ export default function LoginPage() {
         } finally {
             setLoginInProgress(false);
             if (!error) {
-                setEmail('');
-                setPassword('');
+                setCredentials({ email: '', password: '' }); // Reset credentials
             }
         }
-    }
+    };
 
     return (
         <section className="mt-8">
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
             <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
-                
-                <input type="email" id="email" placeholder="Email" value={email}
-                       disabled={loginInProgress}
-                       onChange={ev => {
-                           setEmail(ev.target.value);
-                           setError(''); 
-                       }} />
-                       
-                
-                <input type="password" id="password" placeholder="Password" value={password}
-                       disabled={loginInProgress}
-                       onChange={ev => {
-                           setPassword(ev.target.value);
-                           setError('');
-                       }} />
-                       
-                {error && <p className="">{error}</p>} {/* Display error message */}
-                <p className=" mx-auto ml-2 mb-6"></p>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={credentials.email}
+                    disabled={loginInProgress}
+                    onChange={handleInputChange}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={credentials.password}
+                    disabled={loginInProgress}
+                    onChange={handleInputChange}
+                />
+                {error && <p className="error">{error}</p>} {/* Display error message */}
                 <button disabled={loginInProgress} type="submit">
                     {loginInProgress ? 'Logging in...' : 'Login'}
                 </button>
