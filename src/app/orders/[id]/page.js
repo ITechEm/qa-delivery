@@ -40,17 +40,17 @@ export default function OrderPage() {
   return (
     <section className="hero md:mt-4">
       <div className="py-8 md:py-12">
-        <h2 className="text-5xl font-semibold">
+        <h2 className="text-5xl font-semibold neucha">
         Your order is on the way 
           <span className="text-primary">
           <span> </span>...
           </span>
         </h2>
-        <p className="my-6 text-gray-500 text-sm">
+        <p className="my-6 text-gray-500 text-sm inria">
           We will call you when your order will arrive on your address.
         </p>
         <div className="flex gap-4 text-sm">
-          <button className="flex justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded-50">
+          <button className="flex inknut justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded-50">
             <a 
               href="/"> 
               Home
@@ -71,7 +71,7 @@ export default function OrderPage() {
             {order.cartProducts.map(product => (
               <CartProduct key={product._id} product={product} />
             ))}
-            <div className="text-right py-2 text-gray-500 inika">
+            <div className="text-right py-2 text-gray-500 inria">
               Subtotal:
               <span className="text-black font-bold inline-block w-8">€{subtotal}</span>
               <br />
