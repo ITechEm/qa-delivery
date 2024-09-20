@@ -1,17 +1,19 @@
-'use client';
-import { signIn } from "next-auth/react";
+'use client'; 
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import axios from 'axios'; // Import Axios
 
-export default function LoginPage() {
-    const [credentials, setCredentials] = useState({ email: '', password: '' });
-    const [loginInProgress, setLoginInProgress] = useState(false);
+export default function LoginPage() { 
+    const [credentials, setCredentials] = useState({ email: '', password: '' }); 
+    const [loginInProgress, setLoginInProgress] = useState(false); 
     const [error, setError] = useState('');
-    
+
     const handleInputChange = (ev) => {
         const { name, value } = ev.target;
         setCredentials((prev) => ({ ...prev, [name]: value }));
         setError('');
     };
+
     const handleFormSubmit = async (ev) => {
         ev.preventDefault();
         setLoginInProgress(true);
@@ -24,9 +26,14 @@ export default function LoginPage() {
         }
 
         try {
-            const result = await signIn('credentials', { ...credentials, callbackUrl: '/' });
-            if (result.error) {
-                setError(result.error);
+            // Make an API call using Axios
+            const response = await axios.post('https://spark-qa-delivery.vercel.app/api/login', credentials);
+            
+            // Here you can handle the successful response
+            if (response.data.success) {
+                // Perform actions on successful login, like redirecting or storing tokens
+            } else {
+                setError(response.data.message); // Adjust based on your API's response structure
             }
         } catch (error) {
             console.error(error);
@@ -62,7 +69,6 @@ export default function LoginPage() {
                     required 
                 />
                 {error && <p className="error">{error}</p>}
-                <p className=" mx-auto ml-2 mb-6"></p>
                 <button disabled={loginInProgress} type="submit">
                     {loginInProgress ? 'Logging in...' : 'Login'}
                 </button>
