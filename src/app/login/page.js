@@ -1,59 +1,25 @@
 'use client'; 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import axios from 'axios'; // Import Axios
 
-export default function LoginPage() { 
-    const [credentials, setCredentials] = useState({ email: '', password: '' }); 
-    const [loginInProgress, setLoginInProgress] = useState(false); 
-    const [error, setError] = useState('');
 
-    const handleInputChange = (ev) => {
-        const { name, value } = ev.target;
-        setCredentials((prev) => ({ ...prev, [name]: value }));
-        setError('');
-    };
+export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginInProgress, setLoginInProgress] = useState(false);
 
-    const handleFormSubmit = async (ev) => {
-        ev.preventDefault();
-        setLoginInProgress(true);
-        // Check for empty fields first
-        if (!credentials.email || !credentials.password) {
-            setError('Email and Password are required!');
-            return;
-        }
-        
-        setLoginInProgress(false);
+  async function handleFormSubmit(ev) {
+    ev.preventDefault();
+    setLoginInProgress(true);
 
-        try {
-            // Attempt to sign in
-            const signInResponse = await signIn('credentials', {
-                email: credentials.email, 
-                password: credentials.password, 
-                redirect: false
-            });
-
-            if (signInResponse.error) {
-                setError('Invalid email or password.'); // Adjust based on desired error message
-            } else {
-                // Make an API call using Axios
-                const response = await axios.post('https://spark-qa-delivery.vercel.app/api/login', credentials);
-                
-                if (response.data.success) {
-                    // Clear credentials on successful login
-                    setCredentials({ email: '', password: '' });
-                    // Redirect or perform other actions
-                } else {
-                    setError(response.data.message);
-                }
-            }
-        } catch (error) {
-            console.error(error);
-            setError('Something went wrong. Please try again.');
-        } finally {
-            setLoginInProgress(false);
-        }
-    };
+    await signIn('credentials', {email, password, callbackUrl: '/'});
+// Check for empty fields first
+if (!credentials.email || !credentials.password) {
+  setError('Email and Password are required!');
+  return;
+}
+    setLoginInProgress(false);
+  }
 
     return (
         <section className="mt-8">
@@ -80,7 +46,7 @@ export default function LoginPage() {
                 />
                 
                 <p className=" mx-auto ml-2 mb-6"></p>
-                <button disabled={loginInProgress} type="submit"> Login
+                <button disabled={loginInProgress} type="submit">
                     {loginInProgress ? 'Logging in...' : 'Login'}
                 </button>
             </form>
