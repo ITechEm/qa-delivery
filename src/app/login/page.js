@@ -18,10 +18,14 @@ export default function LoginPage() {
         ev.preventDefault();
         
         // Check for empty fields first
-        if (!credentials.email || !credentials.password) {
-            setError('Email and Password are required!');
+        if (!credentials.email) {
+            setError('You have entered an invalid email');
             return;
         }
+        if (!credentials.password) {
+          setError('You have entered an invalid password');
+          return;
+      }
 
         setLoginInProgress(true);
 
