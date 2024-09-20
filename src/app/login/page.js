@@ -30,7 +30,7 @@ export default function LoginPage() {
             }
         } catch (error) {
             console.error(error);
-            setError('An unexpected error occurred. Please try again.');
+            setError('Something went wrong. Please try again.');
         } finally {
             setLoginInProgress(false);
             if (!error) {
