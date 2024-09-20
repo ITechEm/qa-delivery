@@ -252,14 +252,4 @@ export async function getUserInfo(req, res) {
 
 // Main handler for NextAuth
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
-
-// Ensure you only allow GET requests here
-export default async function apiHandler(req, res) {
-  switch (req.method) {
-    case 'GET':
-      return await getUserInfo(req, res); // using the correct method
-    default:
-      return res.status(405).json({ message: "Method Not Allowed" });
-  }
-}
+export { handler as GET, handler as POST, getUserInfo };
