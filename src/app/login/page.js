@@ -34,7 +34,7 @@ export default function LoginPage() {
             });
 
             if (signInResponse.error) {
-                setError('Invalid email or password. Please try again.'); // Adjust based on desired error message
+                setError('Invalid email or password.'); // Adjust based on desired error message
             } else {
                 // Make an API call using Axios
                 const response = await axios.post('https://spark-qa-delivery.vercel.app/api/login', credentials);
@@ -77,7 +77,8 @@ export default function LoginPage() {
                     onChange={handleInputChange}
                     required 
                 />
-                {error && <p className="error">{error}</p>}
+                
+                <p className=" mx-auto ml-2 mb-6"></p>
                 <button disabled={loginInProgress} type="submit">
                     {loginInProgress ? 'Logging in...' : 'Login'}
                 </button>
