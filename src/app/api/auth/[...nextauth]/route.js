@@ -26,45 +26,21 @@ export const authOptions = {
       
       async authorize(credentials, req) {
         const email = credentials?.email;
-        // const password = credentials?.password;
-        const isEmailValid = /\S+@\S+\.\S+/.test(email);
-
-        // Validate email
-        if (!isEmailValid) {
-          return Response.json(
-            { message: "Invalid email format" },
-            { status: 400 }
-          );
-        }
-        // Validate password
-        try {
-          const password = await credentials?.password;
-          if (user && await bcrypt.compare(password, user.password)) {
-            return user;
-          }
-        } catch (error) {
-          console.error("Error during authorization:", error);
-          return null;
-        }
+        const password = credentials?.password;
 
         mongoose.connect(process.env.MONGO_URL);
-        await connectToDatabase();
-        
-                try {
-                  const user = await User.findOne({ email });
-                  if (user && await bcrypt.compare(password, user.password)) {
-                    return user;
-                  }
-                } catch (error) {
-                  console.error("Error during authorization:", error);
-                  return null;
-                }
-        
-                return null;
-              }
-            })
-          ],
-        };
+        const user = await User.findOne({email});
+        const passwordOk = user && bcrypt.compareSync(password, user.password);
+
+        if (passwordOk) {
+          return user;
+        }
+
+        return null
+      }
+    })
+  ],
+};
 
 export async function isAdmin() {
   const session = await getServerSession(authOptions);
