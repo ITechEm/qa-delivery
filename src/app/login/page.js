@@ -19,7 +19,6 @@ const LoginPage = () => {
 
     if (result.error) {
       setError(result.error); // Set error message if login fails
-      setLoginInProgress(false); // Stop login progress
     } else {
       // If successful, you can redirect or do whatever you need.
       window.location.href = '/'; // Redirect or manage post-login actions
