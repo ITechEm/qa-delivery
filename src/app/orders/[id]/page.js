@@ -84,8 +84,8 @@ export default function OrderPage() {
               </span>
             </div>
           </div>
-          <div className="flex grid md:block">
-            <div className="bg-gray-100 p-4 rounded-lg">
+          <div className="">
+            <div className=" grid md:block bg-gray-100 p-4 rounded-lg">
               <AddressInputs
                 disabled={true}
                 addressProps={order}
