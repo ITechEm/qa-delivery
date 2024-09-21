@@ -17,9 +17,8 @@ export default function LoginPage() {
         useState(prev => ({ ...prev, error: "Email or password inccorrect!"}));
         // Optionally, show an error to the user here (e.g., using state)
     } finally {
-        useState(prev => ({ ...prev, setLoginInProgress: false }));
+        setLoginInProgress(false); // Ensure it resets regardless of success or failure
     }
-
   }
 
   return (
