@@ -6,7 +6,7 @@ import {signOut, useSession} from "next-auth/react";
 import Link from "next/link";
 import {useContext, useState} from "react";
 
-function AuthLinks({status, userName}) {
+function AuthLinks({ status, userName }) {
   if (status === 'authenticated') {
     return (
       <>
@@ -16,7 +16,7 @@ function AuthLinks({status, userName}) {
         <button
           onClick={() => signOut()}
           className="bg-primary rounded text-white px-8 py-2 inknut">
-         Logout
+          Logout
         </button>
       </>
     );
@@ -31,6 +31,7 @@ function AuthLinks({status, userName}) {
       </>
     );
   }
+  return null; // Handle the default case
 }
 
 export default function Header() {

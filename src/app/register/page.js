@@ -10,7 +10,6 @@ export default function RegisterPage() {
     password: '',
     creatingUser: false,
     userCreated: false,
-    timeZone: false,
     error: null,
   });
 
@@ -118,6 +117,10 @@ export default function RegisterPage() {
         <button type="submit" disabled={formData.creatingUser}>
           {formData.creatingUser ? 'Registering...' : 'Register'}
         </button>
+        <div className="text-center pt-4 inria">
+          Existing account?{' '}
+          <Link className="underline" href={'/login'}>Login here &raquo;</Link>
+        </div>
       </form>
     </section>
   );
