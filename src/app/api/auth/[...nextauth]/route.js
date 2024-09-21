@@ -25,36 +25,19 @@ export const authOptions = {
       },
       
       async authorize(credentials, req) {
-        try {
-            if (!credentials?.email || !credentials?.password) {
-                throw new Error('Email or password is missing');
-            }
-    
-            // Connect to MongoDB (consider doing this once at app startup)
-            await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-    
-            const user = await User.findOne({ email: credentials.email });
-            if (!user) {
-                return Response.json(
-                  { message: "User not found" },
-                  { status: 400 }
-                ); 
-            }
-    
-            const passwordOk = bcrypt.compareSync(credentials.password, user.password);
-            if (!passwordOk) {
-                return Response.json(
-                  { message: "Invalid password" },
-                  { status: 400 }
-                );
-            }
-    
-            return user; // Successful authentication
-        } catch (error) {
-            console.error('Authorization error:', error);
-            return null; // Handle error appropriately
+        const email = credentials?.email;
+        const password = credentials?.password;
+
+        mongoose.connect(process.env.MONGO_URL);
+        const user = await User.findOne({email});
+        const passwordOk = user && bcrypt.compareSync(password, user.password);
+
+        if (passwordOk) {
+          return user;
         }
-    }
+
+        return null
+      }
     })
   ],
 };
