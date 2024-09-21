@@ -27,6 +27,22 @@ export const authOptions = {
       async authorize(credentials, req) {
         const email = credentials?.email;
         const password = credentials?.password;
+        const isEmailValid = /\S+@\S+\.\S+/.test(email);
+
+        // Validate email
+        if (!isEmailValid) {
+          return Response.json(
+            { message: "Invalid email format" },
+            { status: 400 }
+          );
+        }
+        // Validate password
+    if (!password) {
+      return Response.json(
+        { message: "Password incorrect!" },
+        { status: 400 }
+      );
+    }
 
         mongoose.connect(process.env.MONGO_URL);
         await connectToDatabase();
