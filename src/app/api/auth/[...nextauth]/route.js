@@ -31,30 +31,23 @@ export const authOptions = {
         mongoose.connect(process.env.MONGO_URL);
         const user = await User.findOne({email});
         const passwordOk = user && bcrypt.compareSync(password, user.password);
-
-        if (passwordOk) {
-          return user;
-        }
-
-         // Validate email
-        if (!user) {
-          return Response.json(
-            { message: "You have entered an incorrect email" },
-            { status: 400 }
-          );
-        }
-        // Validate password
-        if(!passwordOk){
-          return Response.json(
-            { message: "You have entered an incorrect password" },
-            { status: 400 }
-          );
-        }
-        return null
-      }
-    })
-  ],
-};
+        await connectToDatabase();
+        
+                try {
+                  const user = await User.findOne({ email });
+                  if (user && await bcrypt.compare(password, user.password)) {
+                    return user;
+                  }
+                } catch (error) {
+                  console.error("Error during authorization:", error);
+                  return null;
+                }
+        
+                return null;
+              }
+            })
+          ],
+        };
 
 export async function isAdmin() {
   const session = await getServerSession(authOptions);
