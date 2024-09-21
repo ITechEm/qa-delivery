@@ -89,3 +89,8 @@ div.tabs > *.active{
 .inika {
     font-family: 'inika';
 }
+
+.error {
+    font-family: 'inria';
+    color: gray;
+}

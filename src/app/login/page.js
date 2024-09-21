@@ -27,11 +27,11 @@ const LoginPage = () => {
     return (
         <section className="mt-8">
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
-           
+            {error && <p style={{ color: 'gray', font: "inria" }}>{error}</p>} {/* Display error message */}
             <form className="max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
             <input type="email" name="email" placeholder="Email" required />
             <input type="password" name="password" placeholder="Password" required />
-                 {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
+                 
                 <p className=" mx-auto ml-2 mb-6"></p>
                 <button  type="submit">Login</button>
             </form>
