@@ -13,8 +13,7 @@ export default function LoginPage() {
     try {
         await signIn('credentials', { email, password, callbackUrl: '/' });
     } catch (error) {
-        console.error("Error:", err);
-      setuseState(prev => ({ ...prev, error: "The user is already registered"}));
+        console.error("Login failed:", error);
         // Optionally, show an error to the user here (e.g., using state)
     } finally {
         setLoginInProgress(false); // Ensure it resets regardless of success or failure
