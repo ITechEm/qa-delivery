@@ -91,7 +91,7 @@ export default function RegisterPage() {
             type="text"
             name="userName"
             placeholder="Username"
-            value={formData.userName}
+            value={formData.setUserName}
             disabled={formData.creatingUser}
             onChange={handleChange}
             required

@@ -39,14 +39,14 @@ export default function UserForm({user,onSave}) {
           })
         }
       >
-        <label className="ml-2">
+        <label className="ml-2 inria">
           Username
         </label>
         <input
-          type="text" disabled={false} placeholder="First and last name"
+          type="text" disabled={false} placeholder="Username"
           value={userName} onChange={ev => setUserName(ev.target.value)}
         />
-        <label>Email</label>
+        <label className="ml-2 inria">Email</label>
         <input
           type="email"
           disabled={true}
@@ -59,7 +59,7 @@ export default function UserForm({user,onSave}) {
         />
         {loggedInUserData.admin && (
           <div>
-            <label className="p-2 inline-flex items-center gap-2 mb-2" htmlFor="adminCb">
+            <label className="p-2 inline-flex items-center gap-2 mb-2 inria" htmlFor="adminCb">
               <input
                 id="adminCb" type="checkbox" className="" value={'1'}
                 checked={admin}
