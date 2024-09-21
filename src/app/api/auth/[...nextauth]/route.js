@@ -43,28 +43,49 @@ export const authOptions = {
 
         try {
           const user = await User.findOne({ email });
-          if (user && await bcrypt.compare(password, user.password)) {
+          if (!user) {
+            return Promise.reject(new Error("User not found."));
+          }
+          if (await bcrypt.compare(password, user.password)) {
             return user;
           }
         } catch (error) {
-          console.error("Database error:", error);
+          console.error("Database error:", error.message);  // More specific logging
           return Promise.reject(new Error("Error during authentication."));
         }
 
-        return Promise.reject(new Error("Invalid email or password."));
+        
       }
     })
   ],
 };
 
 export async function isAdmin() {
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user || !session.user.email) {
-    return false;
-  }
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user?.email) return false;
 
-  const userInfo = await UserInfo.findOne({ email: session.user.email });
-  return userInfo ? userInfo.admin : false;
+    const userInfo = await UserInfo.findOne({ email: session.user.email });
+    return userInfo ? userInfo.admin : false;
+  } catch (error) {
+    console.error("Error checking admin status:", error.message);
+    return false;  // Default to false on error
+  }
+}
+
+export async function getUserInfo(req, res) {
+  const session = await getServerSession(authOptions);
+  if (!session) return res.status(401).json({ message: "Unauthorized" });
+
+  try {
+    const user = await User.findOne({ email: session.user.email }).select('-password'); // Avoid returning password
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Error fetching user information:", error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 }
 
 const handler = NextAuth(authOptions);
