@@ -29,24 +29,8 @@ const LoginPage = () => {
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
            
             <form className="max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    disabled={loginInProgress}
-                    onChange={ev => setEmail(ev.target.value)}
-                    
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    disabled={loginInProgress}
-                    onChange={ev => setPassword(ev.target.value)}
-               
-                />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="password" name="password" placeholder="Password" required />
                  {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
                 <p className=" mx-auto ml-2 mb-6"></p>
                 <button disabled={loginInProgress} type="submit">Login</button>
