@@ -84,7 +84,11 @@ export default function OrderPage() {
               </span>
             </div>
           </div>
-          <div className="relative md:block">
+          
+        </div>
+        
+      )}
+      <div className="flex grid md:block">
             <div className="bg-gray-100 p-4 rounded-lg">
               <AddressInputs
                 disabled={true}
@@ -92,8 +96,6 @@ export default function OrderPage() {
               />
             </div>
           </div>
-        </div>
-      )}
     </section>
   );
 }
