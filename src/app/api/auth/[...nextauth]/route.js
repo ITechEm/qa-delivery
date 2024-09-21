@@ -35,12 +35,18 @@ export const authOptions = {
     
             const user = await User.findOne({ email: credentials.email });
             if (!user) {
-                return null; // User not found
+                return Response.json(
+                  { message: "User not found" },
+                  { status: 400 }
+                ); 
             }
     
             const passwordOk = bcrypt.compareSync(credentials.password, user.password);
             if (!passwordOk) {
-                return null; // Invalid password
+                return Response.json(
+                  { message: "Invalid password" },
+                  { status: 400 }
+                );
             }
     
             return user; // Successful authentication
