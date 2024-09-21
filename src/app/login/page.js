@@ -13,7 +13,7 @@ export default function LoginPage() {
     try {
         await signIn('credentials', { email, password, callbackUrl: '/' });
     } catch (error) {
-        console.error("Login failed:", error);
+        console.error(useState);
         // Optionally, show an error to the user here (e.g., using state)
     } finally {
         setLoginInProgress(false); // Ensure it resets regardless of success or failure
