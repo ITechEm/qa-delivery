@@ -40,7 +40,7 @@ export default function OrderPage() {
   return (
     <section className="hero md:mt-4">
       <div className="py-8 md:py-12">
-        <h2 className="text-5xl font-semibold neucha">
+        <h2 className="text-5xl neucha">
         Your order is on the way 
           <span className="text-primary">
           <span> </span>...
@@ -76,7 +76,7 @@ export default function OrderPage() {
               <span className="text-black font-bold inline-block w-8">€{subtotal}</span>
               <br />
               Delivery:
-              <span className="text-black font-bold inline-block w-8">€5</span>
+              <span className="text-black font-bold inline-block w-8 inika">€5</span>
               <br />
               Total:
               <span className="text-black font-bold inline-block w-8">
