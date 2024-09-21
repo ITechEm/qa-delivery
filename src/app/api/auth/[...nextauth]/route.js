@@ -36,11 +36,6 @@ export const authOptions = {
           return user;
         }
 
-        if (email === "" || password === "") {
-                alert("Please enter both email and password.");
-                return false; // Prevent form submission
-            }
-
         return null
       }
     })
