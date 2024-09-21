@@ -27,16 +27,16 @@ export const authOptions = {
       async authorize(credentials, req) {
         const email = credentials?.email;
         const password = credentials?.password;
-
-        mongoose.connect(process.env.MONGO_URL);
-        const user = await User.findOne({email});
-        const passwordOk = user && bcrypt.compareSync(password, user.password);
-
-        if (passwordOk) {
-          return user;
+      
+        await mongoose.connect(process.env.MONGO_URL); // Note: You might want to handle the connection lifecycle properly
+        const user = await User.findOne({ email });
+      
+        // If user is not found or password does not match, throw an error
+        if (!user || !bcrypt.compareSync(password, user.password)) {
+          throw new Error('Invalid email or password');
         }
-
-        return null
+      
+        return user; // Return user if authentication is successful
       }
     })
   ],
@@ -59,7 +59,7 @@ const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
 
-
+//"Email or password invalid"
 // let isConnected = false;
 
 // async function connectToDatabase() {

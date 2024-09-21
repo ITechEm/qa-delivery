@@ -20,7 +20,7 @@ export default function LoginPage() {
     });
 
     if (result.error) {
-      setError("Email or password is incorrect"); // Set error message if login fails
+      setError(result.error); // Set error message if login fails
       setLoginInProgress(false); // Stop login progress
     } else {
       // If successful, you can redirect or do whatever you need.
