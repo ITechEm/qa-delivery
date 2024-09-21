@@ -85,7 +85,7 @@ export default function OrderPage() {
             </div>
           </div>
           <div>
-            <div className="flex bg-gray-100 p-4 rounded-lg">
+            <div className="flex-col bg-gray-100 p-4 rounded-lg">
               <AddressInputs
                 disabled={true}
                 addressProps={order}
