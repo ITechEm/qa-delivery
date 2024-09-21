@@ -27,7 +27,7 @@ const LoginPage = () => {
     return (
         <section className="mt-8">
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
-            
+           
             <form className="max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
                 <input
                     type="email"
@@ -47,7 +47,7 @@ const LoginPage = () => {
                     onChange={ev => setPassword(ev.target.value)}
                
                 />
-                
+                 {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
                 <p className=" mx-auto ml-2 mb-6"></p>
                 <button disabled={loginInProgress} type="submit">Login</button>
             </form>
