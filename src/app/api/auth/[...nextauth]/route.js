@@ -7,6 +7,14 @@ import NextAuth, { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
+let isConnected = false;
+
+async function connectToDatabase() {
+  if (!isConnected) {
+    await mongoose.connect(process.env.MONGO_URL);
+    isConnected = true;
+  }
+}
 
 export const authOptions = {
   secret: process.env.SECRET,
@@ -18,34 +26,32 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
-      id: 'credentials',
       credentials: {
         username: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
-      
+
       async authorize(credentials, req) {
-        const email = credentials?.email.trim();
-        const password = credentials?.password.trim();
-        // Check if the fields are empty
-    if (!email || !password) {
-        return Promise.reject(new Error("Please fill this field.")); // Return a rejected promise with an error
-    }
+        await connectToDatabase();
+        
+        const email = credentials?.username?.trim();
+        const password = credentials?.password?.trim();
 
-        mongoose.connect(process.env.MONGO_URL);
-        const user = await User.findOne({email});
-        const passwordOk = user && bcrypt.compareSync(password, user.password);
-
-        if (passwordOk) {
-          return user;
+        if (!email || !password) {
+          return Promise.reject(new Error("Please fill this field."));
         }
 
-        if (email === "" || password === "") {
-          alert("Please enter both email and password.");
-          return false; // Prevent form submission
-      }
+        try {
+          const user = await User.findOne({ email });
+          if (user && await bcrypt.compare(password, user.password)) {
+            return user;
+          }
+        } catch (error) {
+          console.error("Database error:", error);
+          return Promise.reject(new Error("Error during authentication."));
+        }
 
-      return Promise.reject(new Error("Invalid email or password.")); 
+        return Promise.reject(new Error("Invalid email or password."));
       }
     })
   ],
@@ -53,20 +59,17 @@ export const authOptions = {
 
 export async function isAdmin() {
   const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;
-  if (!userEmail) {
+  if (!session || !session.user || !session.user.email) {
     return false;
   }
-  const userInfo = await UserInfo.findOne({email:userEmail});
-  if (!userInfo) {
-    return false;
-  }
-  return userInfo.admin;
+
+  const userInfo = await UserInfo.findOne({ email: session.user.email });
+  return userInfo ? userInfo.admin : false;
 }
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
 
 
 // let isConnected = false;
