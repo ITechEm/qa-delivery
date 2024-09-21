@@ -7,13 +7,26 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginInProgress, setLoginInProgress] = useState(false);
+  const [error, setError] = useState(''); // State for error handling
 
   async function handleFormSubmit(ev) {
     ev.preventDefault();
-    await signIn('credentials', {email, password, callbackUrl: '/'});
-    setLoginInProgress(false);
-  }
+    setLoginInProgress(true); // Start the login process
 
+    const result = await signIn('credentials', {
+      email,
+      password,
+      redirect: false, // Prevent redirecting automatically
+    });
+
+    if (result.error) {
+      setError(result.error); // Set error message if login fails
+      setLoginInProgress(false); // Stop login progress
+    } else {
+      // If successful, you can redirect or do whatever you need.
+      window.location.href = '/'; // Redirect or manage post-login actions
+    }
+  }
     return (
         <section className="mt-8">
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
