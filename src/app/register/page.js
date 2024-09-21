@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
+    setUserName: '',
     email: '',
     password: '',
     creatingUser: false,
@@ -18,11 +19,21 @@ export default function RegisterPage() {
 
     setFormData(prev => ({ ...prev, creatingUser: true, error: null, userCreated: false }));
 
-    const { email, password } = formData;
+    const { setUserName, email, password } = formData;
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isPasswordValid = password.length >= 6 && password.length <= 12;
-    
+    const setUserNameValid = setUserName.length >= 3 && setUserName.length <= 12;
 
+    // Validate username
+    if (!setUserNameValid) {
+      setFormData(prev => ({
+          ...prev,
+          error: "Username must be between 3 and 12 characters",
+          creatingUser: false
+      }));
+      return;
+    }
+  
     if (!isPasswordValid) {
       setFormData(prev => ({
           ...prev,
@@ -48,7 +59,7 @@ export default function RegisterPage() {
       // checkPassword(userPassword);
       const res = await fetch("/api/register", {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ setUserName, email, password }),
         headers: { "Content-Type": "application/json" },
       });
 
@@ -92,7 +103,15 @@ export default function RegisterPage() {
       )}
 
       <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
-        
+          <input
+            type="text"
+            name="setUserName"
+            placeholder="Username"
+            value={formData.setUserName}
+            disabled={formData.creatingUser}
+            onChange={handleChange}
+            required
+          />
           <input
             type="email"
             name="email"
