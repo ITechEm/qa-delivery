@@ -26,7 +26,7 @@ export const authOptions = {
       
       async authorize(credentials, req) {
         const email = credentials?.email;
-        const password = credentials?.password;
+        // const password = credentials?.password;
         const isEmailValid = /\S+@\S+\.\S+/.test(email);
 
         // Validate email
@@ -37,12 +37,15 @@ export const authOptions = {
           );
         }
         // Validate password
-    if (!password) {
-      return Response.json(
-        { message: "Password incorrect!" },
-        { status: 400 }
-      );
-    }
+        try {
+          const password = await credentials?.password;
+          if (user && await bcrypt.compare(password, user.password)) {
+            return user;
+          }
+        } catch (error) {
+          console.error("Error during authorization:", error);
+          return null;
+        }
 
         mongoose.connect(process.env.MONGO_URL);
         await connectToDatabase();
