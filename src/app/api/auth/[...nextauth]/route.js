@@ -25,12 +25,8 @@ export const authOptions = {
       },
       
       async authorize(credentials, req) {
-        const email = credentials?.email.trim();
-        const password = credentials?.password.trim();
-        // Check if the fields are empty
-    if (!email || !password) {
-        return Promise.reject(new Error("Please fill this field.")); // Return a rejected promise with an error
-    }
+        const email = credentials?.email;
+        const password = credentials?.password;
 
         mongoose.connect(process.env.MONGO_URL);
         const user = await User.findOne({email});
@@ -41,9 +37,9 @@ export const authOptions = {
         }
 
         if (email === "" || password === "") {
-          alert("Please enter both email and password.");
-          return false; // Prevent form submission
-      }
+                alert("Please enter both email and password.");
+                return false; // Prevent form submission
+            }
 
         return null
       }
