@@ -6,25 +6,19 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginInProgress, setLoginInProgress] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(''); // State for error messages
+
   async function handleFormSubmit(ev) {
     ev.preventDefault();
-    setLoginInProgress(true);
-    setErrorMessage(''); // Reset error message before a new login attempt
-
+    setLoginInProgress(true); // Set to true when login starts
     try {
-      const result = await signIn('credentials', { email, password, callbackUrl: '/' });
-      if (!result?.ok) { // Check if sign in was not successful
-        throw new Error('Login failed, please check your credentials.');
-      }
+        await signIn('credentials', { email, password, callbackUrl: '/' });
     } catch (error) {
-      console.error("Login failed:", error);
-      setErrorMessage(error.message); // Show error to the user
+        console.error("Login failed:", error);
+        // Optionally, show an error to the user here (e.g., using state)
     } finally {
-      setLoginInProgress(false);
+        setLoginInProgress(false); // Ensure it resets regardless of success or failure
     }
   }
-
 
   return (
     <section className="mt-8">
@@ -50,7 +44,6 @@ export default function LoginPage() {
                 minLength={0}
                 maxLength={15}
             />
-            <p className="text-red-500">{errorMessage}</p> {/* Display error message */}
             <p className="mx-auto ml-2 mb-6"></p>
             <button disabled={loginInProgress} type="submit">
                 {loginInProgress ? 'Logging in...' : 'Login'}
