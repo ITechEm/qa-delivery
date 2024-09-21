@@ -6,9 +6,10 @@ import { useState } from "react";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    setUserName: '',
+    username: '',
     email: '',
     password: '',
+    setUserName: false,
     creatingUser: false,
     userCreated: false,
     error: null,
@@ -16,50 +17,33 @@ export default function RegisterPage() {
 
   async function handleFormSubmit(ev) {
     ev.preventDefault();
-
     setFormData(prev => ({ ...prev, creatingUser: true, error: null, userCreated: false }));
+    setFormData(prev => ({ ...prev, setUserName: true, error: null, setUserName: false }));
 
-    const { setUserName, email, password } = formData;
+    const { userName, email, password } = formData;
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isPasswordValid = password.length >= 6 && password.length <= 12;
-    const setUserNameValid = setUserName.length >= 3 && setUserName.length <= 12;
+    const isUserNameValid = userName.length >= 3 && userName.length <= 12;
 
-    // Validate username
-    if (!setUserNameValid) {
-      setFormData(prev => ({
-          ...prev,
-          error: "Username must be between 3 and 12 characters",
-          creatingUser: false
-      }));
+    if (!isUserNameValid) {
+      setFormData(prev => ({ ...prev, error: "Username must be between 3 and 12 characters.", creatingUser: false }));
       return;
     }
   
     if (!isPasswordValid) {
-      setFormData(prev => ({
-          ...prev,
-          error: "Password must be between 6 and 12 characters",
-          sizeText: 8, 
-          creatingUser: false
-      }));
+      setFormData(prev => ({ ...prev, error: "Password must be between 6 and 12 characters.", creatingUser: false }));
       return;
     }
-     if (!isEmailValid) {
-     setFormData(prev => ({
-        ...prev,
-        error: "The email is not valid.",
-        sizeText: 8,
-        creatingUser: false
-      }));
+
+    if (!isEmailValid) {
+      setFormData(prev => ({ ...prev, error: "The email is not valid.", creatingUser: false }));
       return;
     }
 
     try {
-      // Assume checkPassword is a function defined elsewhere
-      // let userPassword = prompt("Enter your password:");
-      // checkPassword(userPassword);
       const res = await fetch("/api/register", {
         method: "POST",
-        body: JSON.stringify({ setUserName, email, password }),
+        body: JSON.stringify({ userName, email, password }),
         headers: { "Content-Type": "application/json" },
       });
 
@@ -75,7 +59,7 @@ export default function RegisterPage() {
       }
     } catch (err) {
       console.error("Error:", err);
-      setFormData(prev => ({ ...prev, error: "The user is already registered"}));
+      setFormData(prev => ({ ...prev, error: err.message || "An unexpected error occurred." }));
     } finally {
       setFormData(prev => ({ ...prev, creatingUser: false }));
     }
@@ -105,9 +89,9 @@ export default function RegisterPage() {
       <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
           <input
             type="text"
-            name="setUserName"
+            name="userName"
             placeholder="Username"
-            value={formData.setUserName}
+            value={formData.userName}
             disabled={formData.creatingUser}
             onChange={handleChange}
             required
