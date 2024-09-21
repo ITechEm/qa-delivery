@@ -35,13 +35,6 @@ export const authOptions = {
         if (passwordOk) {
           return user;
         }
-        // Validate password
-    if (passwordOk.length < 6 ) {
-      return Response.json(
-        { message: "You entered an incorrect password" },
-        { status: 400 }
-      );
-    }
 
         return null
       }

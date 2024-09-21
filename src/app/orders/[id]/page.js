@@ -59,7 +59,7 @@ export default function OrderPage() {
           </button>
         </div>
       </div>
-      <div className="relative hidden md:block">
+      <div className="relative md:block">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
       {loadingOrder && (
@@ -84,8 +84,8 @@ export default function OrderPage() {
               </span>
             </div>
           </div>
-          <div>
-            <div className="flex-col bg-gray-100 p-4 rounded-lg">
+          <div className="relative md:block">
+            <div className="bg-gray-100 p-4 rounded-lg">
               <AddressInputs
                 disabled={true}
                 addressProps={order}
