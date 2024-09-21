@@ -33,7 +33,7 @@ const LoginPage = () => {
             <input type="password" name="password" placeholder="Password" required />
                  {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
                 <p className=" mx-auto ml-2 mb-6"></p>
-                <button disabled={loginInProgress} type="submit">Login</button>
+                <button  type="submit">Login</button>
             </form>
         </section>
     );
