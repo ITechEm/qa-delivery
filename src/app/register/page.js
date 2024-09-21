@@ -10,6 +10,7 @@ export default function RegisterPage() {
     password: '',
     creatingUser: false,
     userCreated: false,
+    timeZone: false,
     error: null,
   });
 
