@@ -6,7 +6,7 @@ import { useState } from "react";
 const LoginPage = () => {
     const [error, setError] = useState(null);
   
-    const handleSubmit = async (e) => {
+    const handleFormSubmit = async (e) => {
       e.preventDefault();
       const email = e.target.email.value;
       const password = e.target.password.value;
