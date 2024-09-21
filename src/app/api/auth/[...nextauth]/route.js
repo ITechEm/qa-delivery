@@ -36,6 +36,20 @@ export const authOptions = {
           return user;
         }
 
+         // Validate email
+        if (!email) {
+          return Response.json(
+            { message: "Invalid email format" },
+            { status: 400 }
+          );
+        }
+        // Validate password
+        if(!passwordOk){
+          return Response.json(
+            { message: "Password must be between 6 and 12 characters" },
+            { status: 400 }
+          );
+        }
         return null
       }
     })
