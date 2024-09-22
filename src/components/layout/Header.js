@@ -11,7 +11,7 @@ function AuthLinks({ status, userName }) {
     return (
       <>
         <Link href={'/profile'} className="whitespace-nowrap">
-          <h1 className="text-black inknut max-w-10">Hello, {userName}</h1>
+          <h1 className="text-black inknut max-w-5">Hello, {userName}</h1>
         </Link>
         <button
           onClick={() => signOut({ callbackUrl: '/' })}
