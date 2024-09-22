@@ -74,7 +74,7 @@ export default function Header() {
           <Link href={'/menu'}>Menu</Link>
           <Link href={'/#about'}>About</Link>
           <Link href={'/#contact'}>Contact</Link>
-          <AuthLinks status={status} userName={userName} />
+          <AuthLinks status={status} userName={userName} length={10}/>
         </div>
       )}
       <div className="hidden md:flex items-center justify-between">
@@ -88,7 +88,7 @@ export default function Header() {
           <Link href={'/#contact'}>Contact</Link>
         </nav>
         <nav className="flex items-center gap-4">
-          <AuthLinks status={status} userName={userName} />
+          <AuthLinks status={status} userName={userName}  length={10}/>
           <Link href={'/cart'} className="relative">
             <ShoppingCart />
             {cartProducts?.length > 0 && (

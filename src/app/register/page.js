@@ -18,15 +18,9 @@ export default function RegisterPage() {
     setFormData(prev => ({ ...prev, creatingUser: true, error: null, userCreated: false }));
 
 
-    const { userName, email, password } = formData;
+    const { email, password } = formData;
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isPasswordValid = password.length >= 6 && password.length <= 12;
-    const isUserNameValid = username.length >= 3 && username.length <= 12;
-
-    if (!isUserNameValid) {
-      setFormData(prev => ({ ...prev, error: "Username must be between 3 and 12 characters.", creatingUser: false }));
-      return;
-    }
   
     if (!isPasswordValid) {
       setFormData(prev => ({ ...prev, error: "Password must be between 6 and 12 characters.", creatingUser: false }));
@@ -41,7 +35,7 @@ export default function RegisterPage() {
     try {
       const res = await fetch("/api/register", {
         method: "POST",
-        body: JSON.stringify({ userName, email, password }),
+        body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
       });
 
