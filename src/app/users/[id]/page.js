@@ -12,25 +12,33 @@ export default function EditUserPage() {
   const {id} = useParams();
 
   useEffect(() => {
-    fetch('/api/profile?_id='+id).then(res => {
-      res.json().then(user => {
-        setUser(user);
-      });
-    })
-  }, []);
+    if (id) {
+      fetch('/api/profile?_id=' + id)
+        .then(res => res.json())
+        .then(user => {
+          setUser(user);
+        })
+        .catch(err => console.error(err));
+    }
+  }, [id]);
 
   async function handleSaveButtonClick(ev, data) {
     ev.preventDefault();
+    if (!data) {
+      return console.error('No user data provided');
+    }
+
     const promise = new Promise(async (resolve, reject) => {
       const res = await fetch('/api/profile', {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({...data,_id:id}),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, _id: id }),
       });
-      if (res.ok)
+      if (res.ok) {
         resolve();
-      else
-        reject();
+      } else {
+        reject(res.statusText);
+      }
     });
 
     await toast.promise(promise, {
@@ -44,8 +52,12 @@ export default function EditUserPage() {
     return 'Loading user profile...';
   }
 
-  if (!data.admin) {
+  if (!data?.admin) {
     return 'Not an admin';
+  }
+
+  if (user === null) {
+    return 'User not found';
   }
 
   return (
