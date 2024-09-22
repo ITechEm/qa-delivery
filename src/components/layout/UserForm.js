@@ -44,7 +44,7 @@ export default function UserForm({user,onSave}) {
         </label>
         <input
           type="text" disabled={false} placeholder="Username"
-          value={userName} onChange={ev => setUserName(ev.target.value)}
+          value={userName} onChange={ev => setUserName(ev.target.value)} minLength={0} maxLength={15}
         />
         <label className="ml-2 inria">Email</label>
         <input

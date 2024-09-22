@@ -6,12 +6,12 @@ import {signOut, useSession} from "next-auth/react";
 import Link from "next/link";
 import {useContext, useState} from "react";
 
-function AuthLinks({ status, username }) {
+function AuthLinks({ status, userName }) {
   if (status === 'authenticated') {
     return (
       <>
         <Link href={'/profile'} className="whitespace-nowrap">
-          <h1 className="text-black inknut">Hello, {username}</h1>
+          <h1 className="text-black inknut">Hello, {userName}</h1>
         </Link>
         <button
           onClick={() => signOut()}
@@ -38,11 +38,11 @@ export default function Header() {
   const session = useSession();
   const status = session?.status;
   const userData = session.data?.user;
-  let username = userData?.name || userData?.email;
+  let userName = userData?.name || userData?.email;
   const {cartProducts} = useContext(CartContext);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  if (username && username.includes(' ')) {
-    username = username.split(' ')[0];
+  if (userName && userName.includes(' ')) {
+    userName = userName.split(' ')[0];
   }
   return (
     <header>
@@ -74,7 +74,7 @@ export default function Header() {
           <Link href={'/menu'}>Menu</Link>
           <Link href={'/#about'}>About</Link>
           <Link href={'/#contact'}>Contact</Link>
-          <AuthLinks status={status} username={username} />
+          <AuthLinks status={status} userName={userName} />
         </div>
       )}
       <div className="hidden md:flex items-center justify-between">
@@ -88,7 +88,7 @@ export default function Header() {
           <Link href={'/#contact'}>Contact</Link>
         </nav>
         <nav className="flex items-center gap-4">
-          <AuthLinks status={status} username={username} />
+          <AuthLinks status={status} userName={userName} />
           <Link href={'/cart'} className="relative">
             <ShoppingCart />
             {cartProducts?.length > 0 && (
