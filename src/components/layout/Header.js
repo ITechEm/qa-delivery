@@ -14,7 +14,7 @@ function AuthLinks({ status, userName }) {
           <h1 className="text-black inknut max-w-10">Hello, {userName}</h1>
         </Link>
         <button
-          onClick={() => signOut()}
+          onClick={() => signOut({ callbackUrl: '/' })}
           className="bg-primary rounded text-white px-8 py-2 inknut">
           Logout
         </button>
