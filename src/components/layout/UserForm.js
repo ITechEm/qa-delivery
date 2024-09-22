@@ -69,7 +69,7 @@ export default function UserForm({user,onSave}) {
             </label>
           </div>
         )}
-        <button type="submit">Save</button>
+        <button type="submit" onClick={({ callbackUrl: '/' })}>Save</button>
       </form>
     </div>
   );

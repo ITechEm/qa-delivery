@@ -91,7 +91,7 @@ div.tabs > *.active{
 }
 
 .trimmedbutton {
-    width: 100px;
+    width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
