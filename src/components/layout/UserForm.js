@@ -30,7 +30,7 @@ export default function UserForm({user,onSave}) {
           <EditableImage link={image} setLink={setImage} />
         </div>
       </div>
-      <form
+      <form  onClick={({ callbackUrl: '/' })}
         className="grow"
         onSubmit={ev =>
           onSave(ev, {
@@ -69,7 +69,7 @@ export default function UserForm({user,onSave}) {
             </label>
           </div>
         )}
-        <button type="submit" onClick={({ callbackUrl: '/' })}>Save</button>
+        <button type="submit">Save</button>
       </form>
     </div>
   );
