@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function RegisterPage() {
-  const [formData, setFormData, userName, setUserName] = useState({
+export default function RegisterPage(user,onSave) {
+  const [userName, setUser] = useState(user?.name || '');
+  const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
@@ -14,20 +15,30 @@ export default function RegisterPage() {
     error: null,
   });
 
+  async function handleSaveButtonClick(ev, data) {
+    ev.preventDefault();
+    const promise = new Promise(async (resolve, reject) => {
+      const res = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({...data,_id:id}),
+      });
+      if (res.ok)
+        resolve();
+      else
+        reject();
+    });
+  }
+
+  
   async function handleFormSubmit(ev) {
     ev.preventDefault();
-    setFormData(prev => ({ ...prev, creatingUser: true, error: null, userCreated: false }));
+    setFormData(prev => ({ ...prev, username:setUser.name, creatingUser: true, error: null, userCreated: false }));
 
 
     const { userName, email, password } = formData;
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isPasswordValid = password.length >= 6 && password.length <= 12;
-    const isUserNameValid = username.length >= 3 && username.length <= 12;
-
-    if (!isUserNameValid) {
-      setFormData(prev => ({ ...prev, error: "Username must be between 3 and 12 characters.", creatingUser: false }));
-      return;
-    }
   
     if (!isPasswordValid) {
       setFormData(prev => ({ ...prev, error: "Password must be between 6 and 12 characters.", creatingUser: false }));
@@ -63,7 +74,6 @@ export default function RegisterPage() {
       setFormData(prev => ({ ...prev, creatingUser: false }));
     }
   }
-
   const handleChange = (ev) => {
     const { name, value } = ev.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -90,9 +100,9 @@ export default function RegisterPage() {
             type="text"
             name="username"
             placeholder="Username"
-            value={formData.userName}
+            value={setUser.name}
             disabled={formData.creatingUser}
-            onChange={handleChange}
+            onSubmit={handleSaveButtonClick}
             required
           />
           <input
@@ -126,4 +136,5 @@ export default function RegisterPage() {
       </form>
     </section>
   );
+  
 }

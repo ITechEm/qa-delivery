@@ -53,7 +53,7 @@ export default function UserForm({user,onSave}) {
           value={user.email}
           placeholder={'Email'}
         />
-        <AddressInputs
+        <AddressInputs className="ml-2 inria"
           addressProps={{phone, streetAddress, postalCode, city, country}}
           setAddressProp={handleAddressChange}
         />

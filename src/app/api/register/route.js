@@ -13,16 +13,9 @@ export async function POST(req) {
     await connectToDatabase();
 
     const body = await req.json();
-    const { userName, password, email } = body; // Extract email and password
+    const { password, email } = body; // Extract email and password
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
 
-    // Validate username
-    if (!userName || userName.length < 3) { // Assuming minimum length of 3 for username
-      return Response.json(
-        { message: "Username must be at least 3 characters" },
-        { status: 400 }
-      );
-    }
 
     // Validate email
     if (!isEmailValid) {
