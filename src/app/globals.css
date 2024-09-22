@@ -90,6 +90,7 @@ div.tabs > *.active{
     font-family: 'inika';
 }
 
+/*hidding long text*/
 .trimmedbutton {
     width: 150px;
     white-space: nowrap;
