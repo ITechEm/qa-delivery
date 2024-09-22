@@ -5,11 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function RegisterPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData, userName, setUserName] = useState({
     username: '',
     email: '',
     password: '',
-    setUserName: false,
     creatingUser: false,
     userCreated: false,
     error: null,
@@ -18,12 +17,12 @@ export default function RegisterPage() {
   async function handleFormSubmit(ev) {
     ev.preventDefault();
     setFormData(prev => ({ ...prev, creatingUser: true, error: null, userCreated: false }));
-    setFormData(prev => ({ ...prev, setUserName: true, error: null, setUserName: false }));
+
 
     const { userName, email, password } = formData;
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isPasswordValid = password.length >= 6 && password.length <= 12;
-    const isUserNameValid = userName.length >= 3 && userName.length <= 12;
+    const isUserNameValid = username.length >= 3 && username.length <= 12;
 
     if (!isUserNameValid) {
       setFormData(prev => ({ ...prev, error: "Username must be between 3 and 12 characters.", creatingUser: false }));
@@ -89,9 +88,9 @@ export default function RegisterPage() {
       <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
           <input
             type="text"
-            name="userName"
+            name="username"
             placeholder="Username"
-            value={formData.setUserName}
+            value={formData.userName}
             disabled={formData.creatingUser}
             onChange={handleChange}
             required
