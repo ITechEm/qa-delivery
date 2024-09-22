@@ -11,7 +11,7 @@ function AuthLinks({ status, userName }) {
     return (
       <>
         <Link href={'/profile'} className="whitespace-nowrap">
-          <h1 className="text-black inknut text-lenght-10">Hello, {userName}</h1>
+          <h1 className="text-black inknut max-w-10">Hello, {userName}</h1>
         </Link>
         <button
           onClick={() => signOut()}
@@ -74,7 +74,7 @@ export default function Header() {
           <Link href={'/menu'}>Menu</Link>
           <Link href={'/#about'}>About</Link>
           <Link href={'/#contact'}>Contact</Link>
-          <AuthLinks status={status} userName={userName} length={10}/>
+          <AuthLinks status={status} userName={userName} maxLength={10}/>
         </div>
       )}
       <div className="hidden md:flex items-center justify-between">
@@ -88,7 +88,7 @@ export default function Header() {
           <Link href={'/#contact'}>Contact</Link>
         </nav>
         <nav className="flex items-center gap-4">
-          <AuthLinks status={status} userName={userName}  length={10}/>
+          <AuthLinks status={status} userName={userName}  maxLength={10}/>
           <Link href={'/cart'} className="relative">
             <ShoppingCart />
             {cartProducts?.length > 0 && (

@@ -33,7 +33,7 @@ export const authOptions = {
       
         // If user is not found or password does not match, throw an error
         if (!user || !bcrypt.compareSync(password, user.password)) {
-          throw new Error('Invalid email or password');
+          throw new Error("Email or password invalid");
         }
       
         return user; // Return user if authentication is successful
