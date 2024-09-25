@@ -24,6 +24,7 @@ This is a `full-stack` project created by dejwid and `modified by me`.
 💾 MongoDB for database
 💳 Stripe for payments
 🎨 Figma for design
+☁️ AWS-S3 for storing files
 🏭 GitHub for CI/CD
 🚀 Vercel for deployment
 
