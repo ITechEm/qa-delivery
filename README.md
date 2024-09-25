@@ -26,7 +26,7 @@ This is a `full-stack` project created by dejwid and `modified by me`.
 🎨 Figma for design
 ☁️ AWS-S3 for storing files
 🏭 GitHub for CI/CD
-🚀 Vercel for deployment
+🚀 Vercel for deployment and hosting
 
 ```
 
