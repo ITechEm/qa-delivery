@@ -25,12 +25,10 @@ export default function OrdersPage() {
     })
   }
   if (orders?.length === 0) {
-    return (
       <section className="mt-8 text-center">
         <SectionHeaders mainHeader="Cart" />
-        <p className="mt-4">Your don't have any orders 😔</p>
+        <p className="mt-4">Your shopping cart is empty 😔</p>
       </section>
-    );
   }
 
   return (
@@ -73,4 +71,5 @@ export default function OrdersPage() {
       </div>
     </section>
   );
+  
 }
