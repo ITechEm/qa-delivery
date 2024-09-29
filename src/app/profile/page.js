@@ -55,7 +55,7 @@ export default function ProfilePage() {
   }
 
   if (status === 'loading' || !profileFetched) {
-    return 'Loading...';
+    return '';
   }
 
   if (status === 'unauthenticated') {

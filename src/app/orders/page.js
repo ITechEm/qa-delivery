@@ -29,13 +29,11 @@ export default function OrdersPage() {
     <section className="mt-8 max-w-2xl mx-auto">
       <UserTabs isAdmin={profile.admin} />
       <div className="mt-8">
-        {loadingOrders && (
-          <div className="text-center inria">Loading orders...</div>
-        )}
+        
         {orders?.length === 0 && (
           <div>
             <p className="text-center inria">
-            Looks like you have no orders. <br></br>
+            Looks like you have no orders... <br></br>
             Go ahead and explore our menu’s  
             </p>
 
