@@ -19,7 +19,7 @@ export const authOptions = {
       name: 'Credentials',
       id: 'credentials',
       credentials: {
-        username: { label: "Email", type: "email", placeholder: "test@example.com" },
+        email: { label: "Email", type: "email", placeholder: "test@example.com" },
         password: { label: "Password", type: "password" },
       },
       
@@ -57,52 +57,6 @@ export async function isAdmin() {
 const handler = NextAuth(authOptions);
 
 export { handler as GET}
-
-
-
-
-// export async function POST(req) {
-//   try {
-//     const { credentials } = await req.json();
-
-//     // Check for null pointer references
-//     if (!credentials || !credentials.email || !credentials.password) {
-//       return Response.json(
-//         { message: "Email or password invalid" },
-//         { status: 400 }
-//       );
-//     }
-
-//     const session = await getServerSession(authOptions);
-//     if (session?.user?.email) {
-//       return Response.json(
-//         { message: "Already logged in" },
-//         { status: 400 }
-//       );
-//     }
-
-//     // Connect to database
-//     await mongoose.connect(process.env.MONGO_URL);
-
-//     // Check for unhandled exceptions
-//     const user = await User.findOne({ email: credentials.email });
-//     if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
-//       return Response.json(
-//         { message: "Email or password invalid" },
-//         { status: 400 }
-//       );
-//     }
-
-//     // Return user if authentication is successful
-//     return Response.json(user);
-//   } catch (error) {
-//     console.error(error);
-//     return Response.json(
-//       { message: "An unexpected error occurred" },
-//       { status: 500 }
-//     );
-//   }
-// }
 
 
 export async function POST(req) {
