@@ -2,11 +2,11 @@ import {model, models, Schema} from "mongoose";
 
 const OrderSchema = new Schema({
   userEmail: String,
-  phone: String, require: true,
+  phone: String, 
   streetAddress: String,
-  postalCode: String, require: true,
-  city: String, require: true,
-  country: String, require: true,
+  postalCode: String,
+  city: String,
+  country: String,
   cartProducts: Object,
   paid: {type: Boolean, default: false},
 }, {timestamps: true});
