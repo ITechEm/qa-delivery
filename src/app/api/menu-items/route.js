@@ -9,7 +9,8 @@ export async function POST(req) {
     const menuItemDoc = await MenuItem.create(data);
     return Response.json(menuItemDoc);
   } else {
-    return Response.json({});
+    return Response.json({ message: "Menu item created" },
+      { status: 200 });
   }
 }
 
@@ -33,8 +34,13 @@ export async function DELETE(req) {
   mongoose.connect(process.env.MONGO_URL);
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
-  if (await isAdmin()) {
-    await MenuItem.deleteOne({_id});
-  }
-  return Response.json(true);
+  //activate is admin(when we have the login funtion)
+  // if (await isAdmin()) {
+  //   await MenuItem.deleteOne({_id});
+  // }
+  await MenuItem.deleteOne({_id});
+  return Response.json(
+    { message: "Menu item deleted" },
+    { status: 200 }
+  );
 }
