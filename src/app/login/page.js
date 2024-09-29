@@ -29,12 +29,22 @@ const LoginPage = () => {
             <h1 className="text-center text-5xl mb-6 neucha">Login</h1>
             {error && <p className="text-center inria my-4" >{error}</p>} {/* Display error message */}
             <form className="max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
-            <input type="email" name="email" placeholder="Email" required />
-            <input type="password" name="password" placeholder="Password" required />
+              <input 
+              type="email" 
+              name="email" 
+              placeholder="Email" 
+              required 
+              />
+              <input 
+              type="password" 
+              name="password" 
+              placeholder="Password" 
+              required 
+              />
                  
                 <p className=" mx-auto ml-2 mb-6"></p>
-                <button  type="submit">Login</button>
-            </form>
+                <button  type="submit">{signIn ? 'Logging in...' : 'Logged in'}</button>
+          </form>
         </section>
     );
 }

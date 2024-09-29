@@ -101,7 +101,7 @@ export default function RegisterPage() {
           />
         <p className=" mx-auto ml-2 mb-6"></p>
         <button type="submit" disabled={formData.creatingUser}>
-          {formData.creatingUser ? 'Registering...' : 'Register'} {() => creatingUser({ callbackUrl: '/' })}
+          {formData.creatingUser ? 'Registering...' : 'Register'}
         </button>
         <div className="text-center pt-4 inria">
           Existing account?{' '}
