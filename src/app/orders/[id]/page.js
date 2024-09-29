@@ -49,7 +49,7 @@ export default function OrderPage() {
         <p className="my-6 text-gray-500 text-sm inria">
           We will call you when your order will arrive on your address.
         </p>
-        <div className="ms:relative ">
+        <div className="ms:block ">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} width={200} height={200} />
       </div>
         <div className="flex gap-4 text-sm">
