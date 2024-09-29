@@ -10,6 +10,7 @@ import Link from "next/link";
 import {redirect} from "next/navigation";
 import {useEffect, useState} from "react";
 import toast from "react-hot-toast";
+import { styleText } from "util";
 
 export default function ProfilePage() {
   const session = useSession();
@@ -55,7 +56,7 @@ export default function ProfilePage() {
   }
 
   if (status === 'loading' || !profileFetched) {
-    return '';
+    return {text: 'Loading...' + styleText, textStyle: 'inria'};
   }
 
   if (status === 'unauthenticated') {
