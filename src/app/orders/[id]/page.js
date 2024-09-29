@@ -63,7 +63,7 @@ export default function OrderPage() {
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
       {loadingOrder && (
-        <div>Loading order...</div>
+        <div className="text-center inria">Loading order...</div>
       )}
       {order && (
         <div className="flex grid md:grid-cols-2 md:gap-16 md:block inika">
