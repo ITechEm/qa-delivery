@@ -33,7 +33,14 @@ export default function OrdersPage() {
           <div>Loading orders...</div>
         )}
         {orders?.length === 0 && (
-          <div>No orders</div>
+          <div>
+            <p className="text-center inria">
+            Looks like you have no orders. <br></br>
+            Go ahead and explore our menu’s  
+            </p>
+
+
+          </div>
         )}
         {orders?.length > 0 && orders.map(order => (
           <div
