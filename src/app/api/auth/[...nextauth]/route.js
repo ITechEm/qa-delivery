@@ -318,9 +318,14 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 let isConnected = false;
 
 async function connectToDatabase() {
-  if (!isConnected) {
-    await mongoose.connect(process.env.MONGO_URL);
-    isConnected = true;
+  try {
+    if (!isConnected && process.env.MONGO_URL) {
+      await mongoose.connect(process.env.MONGO_URL);
+      isConnected = true;
+    }
+  } catch (error) {
+    console.error('Error while connecting to database:', error);
+    isConnected = false;
   }
 }
 
@@ -339,33 +344,71 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        await connectToDatabase();
-        const user = await User.findOne({ email: credentials.username });
-        if (user && await bcrypt.compare(credentials.password, user.password)) {
+        try {
+          if (!credentials || !credentials.username || !credentials.password) {
+            return null; // Fail authentication
+          }
+
+          await connectToDatabase();
+          const user = await User.findOne({ email: credentials.username });
+          if (!user) {
+            console.error('User not found:', credentials.username);
+            return null; // Fail authentication
+          }
+
+          const passwordOk = await bcrypt.compare(credentials.password, user.password);
+          if (!passwordOk) {
+            console.error('Password invalid:', credentials.username);
+            return null; // Fail authentication
+          }
+
           return user; // Return the user object if authenticated
+        } catch (error) {
+          console.error('Error while authenticating:', error);
+          return null; // Fail authentication
         }
-        return null; // Fail authentication
       },
     }),
   ],
 };
 
 export async function isAdmin() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.email) return false;
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user || !session.user.email) {
+      return false;
+    }
 
-  const userInfo = await UserInfo.findOne({ email: session.user.email });
-  return userInfo ? userInfo.admin : false;
+    const userInfo = await UserInfo.findOne({ email: session.user.email });
+    if (!userInfo) {
+      return false;
+    }
+
+    return userInfo.admin;
+  } catch (error) {
+    console.error('Error while checking admin status:', error);
+    return false;
+  }
 }
 
 export async function getUserInfo(req, res) {
-  const session = await getServerSession(authOptions);
-  if (!session) return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user || !session.user.email) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
 
-  const user = await User.findOne({ email: session.user.email });
-  if (!user) return res.status(404).json({ message: "User not found" });
+    const email = session.user.email;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-  return res.status(200).json(user); // Return user info
+    return res.status(200).json(user); // Return user info
+  } catch (error) {
+    console.error('Error while getting user info:', error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 }
 
 // Main handler for NextAuth
@@ -374,9 +417,19 @@ export { handler as GET, handler as POST, getUserInfo };
 
 // Ensure you only allow GET requests here
 export default async function apiHandler(req, res) {
+  if (!req || !res) {
+    console.error('apiHandler: null pointer references');
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+
   switch (req.method) {
     case 'GET':
-      return await getUserInfo(req, res); // using the correct method
+      try {
+        return await getUserInfo(req, res); // using the correct method
+      } catch (error) {
+        console.error('apiHandler: unhandled exception', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+      }
     default:
       return res.status(405).json({ message: "Method Not Allowed" });
   }
