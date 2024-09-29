@@ -49,9 +49,6 @@ export default function OrderPage() {
         <p className="my-6 text-gray-500 text-sm inria">
           We will call you when your order will arrive on your address.
         </p>
-        <div className="ms:block ">
-        <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} width={200} height={200} />
-      </div>
         <div className="flex gap-4 text-sm">
           <button className="flex inknut justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded-50">
             <a 
@@ -61,6 +58,9 @@ export default function OrderPage() {
             <Right />
           </button>
         </div>
+        <div className="ms:b ">
+        <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} width={200} height={200} />
+      </div>
       </div>
       
       {loadingOrder && (
