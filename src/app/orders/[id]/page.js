@@ -58,7 +58,7 @@ export default function OrderPage() {
             <Right />
           </button>
         </div>
-        <div className="ms:b ">
+        <div className="mw-200 ">
         <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} width={200} height={200} />
       </div>
       </div>
