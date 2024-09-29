@@ -120,48 +120,48 @@ export const authOptions = {
 };
 
 
-export async function POST(req) {
-  try {
-    const { credentials } = await req.json();
+// export async function POST(req) {
+//   try {
+//     const { credentials } = await req.json();
 
-    // Check for null pointer references
-    if (!credentials || !credentials.email || !credentials.password) {
-      return Response.json(
-        { message: "Email or password invalid" },
-        { status: 400 }
-      );
-    }
+//     // Check for null pointer references
+//     if (!credentials || !credentials.email || !credentials.password) {
+//       return Response.json(
+//         { message: "Email or password invalid" },
+//         { status: 400 }
+//       );
+//     }
 
-    const session = await getServerSession(authOptions);
-    if (session?.user?.email) {
-      return Response.json(
-        { message: "Already logged in" },
-        { status: 400 }
-      );
-    }
+//     const session = await getServerSession(authOptions);
+//     if (session?.user?.email) {
+//       return Response.json(
+//         { message: "Already logged in" },
+//         { status: 400 }
+//       );
+//     }
 
-    // Connect to database
-    await mongoose.connect(process.env.MONGO_URL);
+//     // Connect to database
+//     await mongoose.connect(process.env.MONGO_URL);
 
-    // Check for unhandled exceptions
-    const user = await User.findOne({ email: credentials.email });
-    if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
-      return Response.json(
-        { message: "Email or password invalid" },
-        { status: 400 }
-      );
-    }
+//     // Check for unhandled exceptions
+//     const user = await User.findOne({ email: credentials.email });
+//     if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
+//       return Response.json(
+//         { message: "Email or password invalid" },
+//         { status: 400 }
+//       );
+//     }
 
-    // Return user if authentication is successful
-    return Response.json(user);
-  } catch (error) {
-    console.error(error);
-    return Response.json(
-      { message: "An unexpected error occurred" },
-      { status: 500 }
-    );
-  }
-}
+//     // Return user if authentication is successful
+//     return Response.json(user);
+//   } catch (error) {
+//     console.error(error);
+//     return Response.json(
+//       { message: "An unexpected error occurred" },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 
 // export async function POST(req) {
@@ -232,38 +232,38 @@ export async function POST(req) {
 
 
 
-// export async function POST(req) {
-//   try {
-//     const { credentials } = await req.body;
+export async function POST(req) {
+  try {
+    const { credentials } = await req.body;
 
-//     // Check for null pointer references
-//     if (!credentials || !credentials.email || !credentials.password) {
-//       throw new Error("Email or password invalid");
-//     }
+    // Check for null pointer references
+    if (!credentials || !credentials.email || !credentials.password) {
+      throw new Error("Email or password invalid");
+    }
 
-//     // Connect to database
-//     await connectToDatabase();
+    // Connect to database
+    await connectToDatabase();
 
-//     // Check for unhandled exceptions
-//     const user = await User.findOne({ email: credentials.email });
-//     if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
-//       throw new Error("Email or password invalid");
-//     }
+    // Check for unhandled exceptions
+    const user = await User.findOne({ email: credentials.email });
+    if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
+      throw new Error("Email or password invalid");
+    }
 
-//     // Return user if authentication is successful
-//     return;
+    // Return user if authentication is successful
+    return;
 
-//   } catch (error) {
-//     // Log the error for debugging
-//     console.error(error);
+  } catch (error) {
+    // Log the error for debugging
+    console.error(error);
 
-//     // Return a more generic error message
-//     return Response.json(
-//       { message: "Oh no, something went wrong" },
-//       { status: 400 }
-//     );
-//   }
-// }
+    // Return a more generic error message
+    return Response.json(
+      { message: "Oh no, something went wrong" },
+      { status: 400 }
+    );
+  }
+}
 
 
 
