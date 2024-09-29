@@ -24,12 +24,6 @@ export default function OrdersPage() {
       })
     })
   }
-  if (orders?.length === 0) {
-      <section className="mt-8 text-center">
-        <SectionHeaders mainHeader="Cart" />
-        <p className="mt-4">Your shopping cart is empty 😔</p>
-      </section>
-  }
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
@@ -37,6 +31,9 @@ export default function OrdersPage() {
       <div className="mt-8">
         {loadingOrders && (
           <div>Loading orders...</div>
+        )}
+        {orders?.length === 0 && (
+          <div>No orders</div>
         )}
         {orders?.length > 0 && orders.map(order => (
           <div
