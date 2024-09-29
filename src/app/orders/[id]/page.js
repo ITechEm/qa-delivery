@@ -58,11 +58,10 @@ export default function OrderPage() {
             <Right />
           </button>
         </div>
-        <div className="mw-200 ">
-        <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} width={200} height={200} />
       </div>
+      <div className="relative md:block">
+        <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
       </div>
-      
       {loadingOrder && (
         <div className="text-center inria">Loading order...</div>
       )}
