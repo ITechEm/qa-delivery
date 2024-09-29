@@ -43,7 +43,7 @@ const LoginPage = () => {
               />
                  
                 <p className=" mx-auto ml-2 mb-6"></p>
-                <button  type="submit">{signIn ? 'Logging in...' : 'Logged in'}</button>
+                <button  type="submit">Login</button>
           </form>
         </section>
     );
