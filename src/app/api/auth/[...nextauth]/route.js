@@ -34,6 +34,12 @@ export const authOptions = {
         if (passwordOk) {
           return user;
         }
+        if (!credentials.email || !credentials.password) {
+          return Response.json(
+            { message: "Email or password invalid" },
+            { status: 400 }
+          );
+        }
 
         return null
       }
@@ -56,64 +62,4 @@ export async function isAdmin() {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET}
-
-
-export async function POST(req) {
-  try {
-    await mongoose.connect(process.env.MONGO_URL);
-    const { credentials } = await req.json();
-    if (!credentials || !credentials.email || !credentials.password) {
-      return Response.json(
-        { message: "Email or password invalid" },
-        { status: 400 }
-      );
-    }
-
-    // Check for unhandled exceptions
-    const user = await User.findOne({ email: credentials.email });
-    if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
-      return Response.json(
-        { message: "Email or password invalid" },
-        { status: 400 }
-      );
-    }
-
-    // Check for null pointer references
-    if (!user) {
-      return Response.json(
-        { message: "User is not found" },
-        { status: 400 }
-      );
-    }
-
-    // Return user if authentication is successful
-    const response = await NextAuth(authOptions).callback(req, null);
-    if (response.ok) {
-      await setLoginInProgress(true);
-    } else {
-      await setError(true);
-    }
-
-    return Response.json({ loginInProgress: await getLoginInProgress() });
-  } catch (error) {
-    console.error(error);
-    if (error.message === "No session found") {
-      return Response.json(
-        { message: "Session is not found" },
-        { status: 400 }
-      );
-    }
-    if (error.message === "No user found") {
-      return Response.json(
-        { message: "User is not found" },
-        { status: 400 }
-      );
-    }
-    return Response.json(
-      { message: "An unexpected error occurred" },
-      { status: 500 }
-    );
-  }
-}
-
+export { handler as GET, handler as POST };
