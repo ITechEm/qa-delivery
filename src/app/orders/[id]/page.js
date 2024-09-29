@@ -57,7 +57,7 @@ export default function OrderPage() {
               </a>
             <Right />
           </button>
-          <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} />
+          <Image src={'/your_Order.gif'} layout={'fill'} objectFit={'contain'} alt={'your_order'} width={20} height={20}/>
         </div>
       </div>
       {/* <div className="relative md:block">
