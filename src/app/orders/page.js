@@ -24,6 +24,14 @@ export default function OrdersPage() {
       })
     })
   }
+  if (orders?.length === 0) {
+    return (
+      <section className="mt-8 text-center">
+        <SectionHeaders mainHeader="Cart" />
+        <p className="mt-4">Your don't have any orders 😔</p>
+      </section>
+    );
+  }
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
