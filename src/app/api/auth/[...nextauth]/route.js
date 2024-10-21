@@ -36,7 +36,7 @@ export const authOptions = {
             { message: "Email or password invalid" },
             { status: 400 }
           );
-        }else
+        }
         if (passwordOk) {
           return user;
         }
