@@ -60,35 +60,33 @@ export { handler as GET}
 
 export async function POST(req) {
   try {
-    const { credentials } = await req.json();
+    const { credentials } = await req.body;
 
     // Check for null pointer references
     if (!credentials || !credentials.email || !credentials.password) {
-      return Response.json(
-        { message: "Email or password invalid" },
-        { status: 400 }
-      );
+      throw new Error("Email or password invalid");
     }
 
     // Connect to database
-    await mongoose.connect(process.env.MONGO_URL);
+    await connectToDatabase();
 
     // Check for unhandled exceptions
     const user = await User.findOne({ email: credentials.email });
     if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
-      return Response.json(
-        { message: "Email or password invalid" },
-        { status: 400 }
-      );
+      throw new Error("Email or password invalid");
     }
 
     // Return user if authentication is successful
-    return Response.json(user);
+    return;
+
   } catch (error) {
+    // Log the error for debugging
     console.error(error);
+
+    // Return a more generic error message
     return Response.json(
-      { message: "An unexpected error occurred" },
-      { status: 500 }
+      { message: "Oh no, something went wrong" },
+      { status: 400 }
     );
   }
 }
