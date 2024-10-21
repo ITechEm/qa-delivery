@@ -18,7 +18,7 @@ const LoginPage = () => {
       });
 
     if (result.error) {
-      setError("result.error"); // Set error message if login fails
+      setError("Email or password invalid"); // Set error message if login fails
     } else {
       // If successful, you can redirect or do whatever you need.
       window.location.href = '/'; // Redirect or manage post-login actions
