@@ -31,14 +31,14 @@ export const authOptions = {
         const user = await User.findOne({email});
         const passwordOk = user && bcrypt.compareSync(password, user.password);
 
-        if (passwordOk) {
-          return user;
-        }
-        if (!credentials || !credentials?.email || !credentials?.password) {
+        if (!credentials || !email || !password) {
           return Response.json(
         { message: "Email or password invalid" },
         { status: 400 }
           );
+        }else
+        if (passwordOk) {
+          return user;
         }
       }
     })
