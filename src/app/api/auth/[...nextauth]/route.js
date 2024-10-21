@@ -60,12 +60,7 @@ export { handler as GET}
 
 export async function POST(req) {
   try {
-    const { credentials } = await req.body;
-
-    // Check for null pointer references
-    if (!credentials || !credentials.email || !credentials.password) {
-      throw new Error("Email or password invalid");
-    }
+    const { credentials } = await req.body
 
     // Connect to database
     await connectToDatabase();
