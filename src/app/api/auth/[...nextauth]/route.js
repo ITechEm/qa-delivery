@@ -70,14 +70,6 @@ export async function POST(req) {
       );
     }
 
-    const session = await getServerSession(authOptions);
-    if (session?.user?.email) {
-      return Response.json(
-        { message: "Already logged in" },
-        { status: 400 }
-      );
-    }
-
     // Connect to database
     await mongoose.connect(process.env.MONGO_URL);
 
