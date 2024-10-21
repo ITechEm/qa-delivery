@@ -30,13 +30,7 @@ export const authOptions = {
         mongoose.connect(process.env.MONGO_URL);
         const user = await User.findOne({email});
         const passwordOk = user && bcrypt.compareSync(password, user.password);
-
-        if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
-          return Response.json(
-            { message: "Email or password invalid" },
-            { status: 400 }
-          );
-        }
+        
         if (passwordOk) {
           return user;
         }
