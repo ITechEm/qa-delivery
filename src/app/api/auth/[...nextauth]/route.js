@@ -34,7 +34,7 @@ export const authOptions = {
         if (passwordOk) {
           return user;
         }
-        if (!credentials || !credentials.email || !credentials.password) {
+        if (!user || !passwordOK) {
           return Response.json(
         { message: "Email or password invalid" },
         { status: 400 }
