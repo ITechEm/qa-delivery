@@ -34,13 +34,13 @@ export const authOptions = {
         if (passwordOk) {
           return user;
         }
-        if (!user) {
+        if (!user || !email) {
           return Response.json(
         { message: "Email or password invalid" },
         { status: 400 }
           );
         }
-        if (!passwordOk) {
+        if (!password) {
           return Response.json(
         { message: "Email or password invalid" },
         { status: 400 }
