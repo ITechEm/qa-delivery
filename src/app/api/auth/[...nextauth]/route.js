@@ -56,35 +56,7 @@ export async function isAdmin() {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET}
-
-export async function POST(req) {
-  try {
-    const { credentials } = await req.body
-
-    // Connect to database
-    await connectToDatabase();
-
-    // Check for unhandled exceptions
-    const user = await User.findOne({ email: credentials.email });
-    if (!user || !bcrypt.compareSync(credentials.password, user.password)) {
-      throw new Error("Email or password invalid");
-    }
-
-    // Return user if authentication is successful
-    return;
-
-  } catch (error) {
-    // Log the error for debugging
-    console.error(error);
-
-    // Return a more generic error message
-    return Response.json(
-      { message: "Oh no, something went wrong" },
-      { status: 400 }
-    );
-  }
-}
+export { handler as GET, handler as POST }
 
 
 // export const authOptions = {
