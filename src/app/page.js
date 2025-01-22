@@ -24,14 +24,41 @@ export default function Home() {
           subHeader={'Don\'t hesitate'}
           mainHeader={<a>Contact <span className="text-primary">Us</span></a>}
         />
-        <div className=" mt-6">
-          <p className="text-4xl underline inria ">
-            +46 738 123 123
-          </p>
-          <p className="text-2xl mt-2 inria">
-            qa_delivery@email.com
-          </p>
-        </div>
+        
+        <div className="grid mt-8 sm:grid-cols-3 gap-4">
+              <div className="bg-gray-200 p-4 rounded-lg group hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
+                <SectionHeaders
+                  menuHeader={<a className="text-center text-2xl">Visit us</a>} 
+                />
+                  <div className="item-center mt-2">
+                    <a className="text-2xl  neucha text-primary" href="https://g.co/kgs/ZQANvHK" target="blank">
+                      Iasi, Romania
+                    </a>
+                  </div>
+              </div>
+              <div className="bg-gray-200 p-4 rounded-lg group hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
+                <SectionHeaders
+                  menuHeader={<a className="text-center text-2xl">Call us</a>} 
+                />
+                  <div className="item-center mt-2">
+                    <a className="text-2xl  neucha text-primary" href='tel:+40757123123'>
+                    +40 757 123 123
+                    </a>
+                  </div>
+              </div>
+              <div className="bg-gray-200 p-4 rounded-lg group hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
+                <SectionHeaders
+                  menuHeader={<a className="text-center text-2xl">Text us</a>} 
+                />
+                  <div className="item-center mt-2">
+                    <a className="text-2xl  neucha text-primary" href="mailto:qa_delivery@email.com">
+                    qa_delivery@email.com
+                    </a>
+                  </div>
+              </div>
+      </div>
+
+        
       </section>
     </>
   )
