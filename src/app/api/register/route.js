@@ -34,7 +34,7 @@ export async function POST(req) {
     }
     if (!password ||password.length > 12) {
       return Response.json(
-        { message: "Password must be between 6 and 12 characters." },
+        { message: "Password must be between 6 and 12 characters" },
         { status: 400 }
       );
     }
