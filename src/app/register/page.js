@@ -23,12 +23,12 @@ export default function RegisterPage() {
     const isPasswordValid = password.length >= 6 && password.length <= 12;
   
     if (!isPasswordValid) {
-      setFormData(prev => ({ ...prev, error: "Password must be between 6 and 12 characters.", creatingUser: false }));
+      setFormData(prev => ({ ...prev, error: "Password must be between 6 and 12 characters", creatingUser: false }));
       return;
     }
 
     if (!isEmailValid) {
-      setFormData(prev => ({ ...prev, error: "The email is not valid.", creatingUser: false }));
+      setFormData(prev => ({ ...prev, error: "The email is not valid", creatingUser: false }));
       return;
     }
 
