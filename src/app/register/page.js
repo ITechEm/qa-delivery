@@ -47,11 +47,11 @@ export default function RegisterPage() {
       if (data._id) {
         setFormData(prev => ({ ...prev, userCreated: true }));
       } else {
-        setFormData(prev => ({ ...prev, error: "User creation failed. Please try again." }));
+        setFormData(prev => ({ ...prev, error: "User creation failed. Please try again!" }));
       }
     } catch (err) {
       console.error("Error:", err);
-      setFormData(prev => ({ ...prev, error: err.message || "An unexpected error occurred." }));
+      setFormData(prev => ({ ...prev, error: err.message || "An unexpected error occurred" }));
     } finally {
       setFormData(prev => ({ ...prev, creatingUser: false }));
     }
