@@ -52,41 +52,41 @@ export async function isAdmin() {
   return userInfo.admin;
 }
 
-// export async function GET(req) {
-//   const { email, password } = await req.json();
+export async function OPTIONS(req) {
+  const { email, password } = await req.json();
 
-//   await mongoose.connect(process.env.MONGO_URL);
+  await mongoose.connect(process.env.MONGO_URL);
 
-//   const user = await User.findOne({ email });
-//   const passwordOk = bcrypt.compareSync(password, user.password);
+  const user = await User.findOne({ email });
+  const passwordOk = bcrypt.compareSync(password, user.password);
 
 
-//   if (!user) {
-//     return new Response(
-//       JSON.stringify({ message: "Email Invalid" }),
-//       {
-//         status: 400,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//     );
-//   }
-//   if (!passwordOk) {
-//     return new Response(
-//       JSON.stringify({ message: "Incorrect password" }),
-//       {
-//         status: 400,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//     );
-//   }
-//   return new Response(
-//     JSON.stringify({ message: "User successfully login" }),
-//       {
-//         status: 200,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//   );
-// }
+  if (!user) {
+    return new Response(
+      JSON.stringify({ message: "Email Invalid" }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+  if (!passwordOk) {
+    return new Response(
+      JSON.stringify({ message: "Incorrect password" }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+  return new Response(
+    JSON.stringify({ message: "User successfully login" }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+  );
+}
 
 const handler = NextAuth(authOptions);
 
