@@ -58,6 +58,8 @@ export async function POST(req) {
   await mongoose.connect(process.env.MONGO_URL);
 
   const user = await User.findOne({ email });
+  const passwordOk = bcrypt.compareSync(password, user.password);
+
   if (!user) {
     return new Response(
       JSON.stringify({ message: "Email Invalid" }),
@@ -67,8 +69,6 @@ export async function POST(req) {
       }
     );
   }
-
-  const passwordOk = bcrypt.compareSync(password, user.password);
   if (!passwordOk) {
     return new Response(
       JSON.stringify({ message: "Incorrect password" }),
@@ -78,7 +78,6 @@ export async function POST(req) {
       }
     );
   }
-
   return new Response(
     JSON.stringify({ message: "User successfully login" }),
       {
@@ -86,6 +85,31 @@ export async function POST(req) {
         headers: { 'Content-Type': 'application/json' },
       }
   );
+}
+
+export async function LOGOUT(req) {
+  const { token } = await req.json();
+
+  // Hypothetical function to clear the session or invalidate the token
+  const result = await clearSession(token);
+
+  if (result.success) {
+    return new Response(
+      JSON.stringify({ message: "User successfully logged out" }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  } else {
+    return new Response(
+      JSON.stringify({ message: "Logout failed" }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 }
 
 const handler = NextAuth(authOptions);
