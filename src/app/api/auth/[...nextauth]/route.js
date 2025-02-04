@@ -80,14 +80,10 @@ export async function POST(req) {
   }
 
   return new Response(
-    JSON.stringify(user),
-    {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    }
+    JSON.stringify({ message: "User successfully login" }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
   );
 }
-
-const handler = NextAuth(authOptions);
-
-export { handler as GET}
