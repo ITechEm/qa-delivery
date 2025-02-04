@@ -52,6 +52,34 @@ export async function isAdmin() {
   return userInfo.admin;
 }
 
+export async function  POST(req) {
+  mongoose.connect(process.env.MONGO_URL);
+  const session = await getServerSession(authOptions);
+  const userEmail = session?.user?.email;
+  if (!userEmail) {
+    return Response.json(
+      {
+        message: "Email Invalid",
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+  const userInfo = await UserInfo.findOne({email:userEmail});
+  if (!userInfo) {
+    return Response.json(
+      {
+        message: "Email or password Invalid",
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+  return userInfo;
+}
+
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export { handler as GET}
