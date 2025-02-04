@@ -26,11 +26,50 @@ export async function PUT(req) {
   );
 }
 
-export async function GET() {
-  mongoose.connect(process.env.MONGO_URL);
-  return Response.json(
-    await Category.find()
-  );
+export async function GET(req) {
+  await mongoose.connect(process.env.MONGO_URL);
+
+  const { searchParams } = new URL(req.url);
+  const name = searchParams.get('name');
+
+  if (name) {
+    try {
+      const category = await Category.findOne({ name });
+      if (!category) {
+        return new Response(
+          JSON.stringify({ message: "Category not found" }),
+          {
+            status: 404,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
+      return new Response(
+        JSON.stringify(category),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    } catch (error) {
+      return new Response(
+        JSON.stringify({ message: "Error finding category" }),
+        {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+  } else {
+    const categories = await Category.find();
+    return new Response(
+      JSON.stringify(categories),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 }
 
 export async function DELETE(req) {

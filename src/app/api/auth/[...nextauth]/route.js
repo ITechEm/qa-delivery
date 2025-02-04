@@ -34,20 +34,32 @@ export const authOptions = {
         if (passwordOk) {
           return user;
         }
-        return null;
       }
     })
   ],
 };
 
+export async function isAdmin() {
+  const session = await getServerSession(authOptions);
+  const userEmail = session?.user?.email;
+  if (!userEmail) {
+    return false;
+  }
+  const userInfo = await UserInfo.findOne({email:userEmail});
+  if (!userInfo) {
+    return false;
+  }
+  return userInfo.admin;
+}
 
-export async function POST(req) {
+export async function GET(req) {
   const { email, password } = await req.json();
 
   await mongoose.connect(process.env.MONGO_URL);
 
   const user = await User.findOne({ email });
   const passwordOk = bcrypt.compareSync(password, user.password);
+
 
   if (!user) {
     return new Response(
@@ -76,30 +88,6 @@ export async function POST(req) {
   );
 }
 
-export async function LOGOUT(req) {
-  const { token } = await req.json();
+const handler = NextAuth(authOptions);
 
-  // Hypothetical function to clear the session or invalidate the token
-  const result = await clearSession(token);
-
-  if (result.success) {
-    return new Response(
-      JSON.stringify({ message: "User successfully logged out" }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } else {
-    return new Response(
-      JSON.stringify({ message: "Logout failed" }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
-
-export default NextAuth(authOptions);
-
+export { handler as POST}
