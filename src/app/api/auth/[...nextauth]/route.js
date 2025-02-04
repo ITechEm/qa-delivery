@@ -34,6 +34,7 @@ export const authOptions = {
         if (passwordOk) {
           return user;
         }
+        return null;
       }
     })
   ],
@@ -100,5 +101,5 @@ export async function LOGOUT(req) {
   }
 }
 
-const handler = NextAuth(authOptions);
+export default NextAuth(authOptions);
 
