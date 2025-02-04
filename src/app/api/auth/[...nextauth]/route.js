@@ -53,10 +53,29 @@ export async function isAdmin() {
 }
 
 export async function  POST(req) {
-  mongoose.connect(process.env.MONGO_URL);
-  const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;
-  if (!userEmail) {
+    CredentialsProvider({
+      name: 'Credentials',
+      id: 'credentials',
+      credentials: {
+        username: { label: "Email", type: "email", placeholder: "test@example.com" },
+        password: { label: "Password", type: "password" },
+      },
+      
+      async authorize(credentials, req) {
+        const email = credentials?.email;
+        const password = credentials?.password;
+
+        mongoose.connect(process.env.MONGO_URL);
+        const user = await User.findOne({email});
+        const passwordOk = user && bcrypt.compareSync(password, user.password);
+
+        if (passwordOk) {
+          return user;
+        }
+      }
+    })
+ 
+  if (!email) {
     return Response.json(
       {
         message: "Email Invalid",
@@ -66,11 +85,10 @@ export async function  POST(req) {
       }
     );
   }
-  const userInfo = await UserInfo.findOne({email:userEmail});
-  if (!userInfo) {
+  if (!password) {
     return Response.json(
       {
-        message: "Email or password Invalid",
+        message: "Password Invalid",
       },
       {
         status: 400,
