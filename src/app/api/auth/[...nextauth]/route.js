@@ -52,48 +52,42 @@ export async function isAdmin() {
   return userInfo.admin;
 }
 
-// export async function POST(req) {
-//   const { email, password } = await req.json();
+export async function POST(req) {
+  const { email, password } = await req.json();
 
-//   await mongoose.connect(process.env.MONGO_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   });
+  await mongoose.connect(process.env.MONGO_URL);
 
-//   const user = await User.findOne({ email });
-//   if (!user) {
-//     return new Response(
-//       JSON.stringify({ message: "Email Invalid" }),
-//       {
-//         status: 400,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//     );
-//   }
+  const user = await User.findOne({ email });
+  if (!user) {
+    return new Response(
+      JSON.stringify({ message: "Email Invalid" }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 
-//   const passwordOk = bcrypt.compareSync(password, user.password);
-//   if (!passwordOk) {
-//     return new Response(
-//       JSON.stringify({ message: "Incorrect password" }),
-//       {
-//         status: 400,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//     );
-//   }
+  const passwordOk = bcrypt.compareSync(password, user.password);
+  if (!passwordOk) {
+    return new Response(
+      JSON.stringify({ message: "Incorrect password" }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 
-//   return new Response(
-//     JSON.stringify({ message: "User successfully login" }),
-//       {
-//         status: 200,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//   );
-
-  
-// }
-
+  return new Response(
+    JSON.stringify({ message: "User successfully login" }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+  );
+}
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST}
+export { handler as GET}
