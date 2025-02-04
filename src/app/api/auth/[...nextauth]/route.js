@@ -87,3 +87,7 @@ export async function POST(req) {
       }
   );
 }
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET}
