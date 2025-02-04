@@ -80,11 +80,11 @@ export async function POST(req) {
   }
 
   return new Response(
-    JSON.stringify({ message: "User successfully login" }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
+    JSON.stringify(user),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    }
   );
 }
 
