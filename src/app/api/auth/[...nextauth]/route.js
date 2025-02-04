@@ -52,51 +52,47 @@ export async function isAdmin() {
   return userInfo.admin;
 }
 
-export async function  POST(req) {
-    CredentialsProvider({
-      name: 'Credentials',
-      id: 'credentials',
-      credentials: {
-        username: { label: "Email", type: "email", placeholder: "test@example.com" },
-        password: { label: "Password", type: "password" },
-      },
-      
-      async authorize(credentials, req) {
-        const email = credentials?.email;
-        const password = credentials?.password;
+export async function POST(req) {
+  const { email, password } = await req.json();
 
-        mongoose.connect(process.env.MONGO_URL);
-        const user = await User.findOne({email});
-        const passwordOk = user && bcrypt.compareSync(password, user.password);
+  await mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
-        if (passwordOk) {
-          return user;
-        }
-      }
-    })
- 
-  if (!email) {
-    return Response.json(
-      {
-        message: "Email Invalid",
-      },
+  const user = await User.findOne({ email });
+  if (!user) {
+    return new Response(
+      JSON.stringify({ message: "Email Invalid" }),
       {
         status: 400,
+        headers: { 'Content-Type': 'application/json' },
       }
     );
   }
-  if (!password) {
-    return Response.json(
-      {
-        message: "Password Invalid",
-      },
+
+  const passwordOk = bcrypt.compareSync(password, user.password);
+  if (!passwordOk) {
+    return new Response(
+      JSON.stringify({ message: "Incorrect password" }),
       {
         status: 400,
+        headers: { 'Content-Type': 'application/json' },
       }
     );
   }
-  return userInfo;
+
+  return new Response(
+    JSON.stringify({ message: "User successfully login" }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+  );
+
+  
 }
+
 
 const handler = NextAuth(authOptions);
 

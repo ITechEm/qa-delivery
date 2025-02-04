@@ -1,18 +1,37 @@
 'use client';
 import SectionHeaders from "@/components/layout/SectionHeaders";
 import MenuItem from "@/components/menu/MenuItem";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export default function MenuPage() {
   const [categories, setCategories] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
+
   useEffect(() => {
-    fetch('/api/categories').then(res => {
-      res.json().then(categories => setCategories(categories))
-    });
-    fetch('/api/menu-items').then(res => {
-      res.json().then(menuItems => setMenuItems(menuItems));
-    });
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('/api/categories');
+        if (!res.ok) throw new Error('Failed to fetch categories');
+        const categories = await res.json();
+        setCategories(categories);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchMenuItems = async () => {
+      try {
+        const res = await fetch('/api/menu-items');
+        if (!res.ok) throw new Error('Failed to fetch menu items');
+        const menuItems = await res.json();
+        setMenuItems(menuItems);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategories();
+    fetchMenuItems();
   }, []);
   return (
     <section className="mt-8">
