@@ -56,36 +56,67 @@ import mongoose from "mongoose";
 export async function GET(req) {
   try {
     await mongoose.connect(process.env.MONGO_URL);
+
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get('_id');
-    const user = await User.findById(userId);
-    if (!user) {
-      return new Response(
-        JSON.stringify({ message: "User not found" }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
-    
+
     if (await isAdmin()) {
-      const users = await User.find();
-      return new Response(
-        JSON.stringify(users),
-        {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
+      if (userId) {
+        const user = await User.findById(userId);
+        if (!user) {
+          return new Response(
+            JSON.stringify({ message: "User not found" }),
+            {
+              status: 404,
+              headers: { 'Content-Type': 'application/json' },
+            }
+          );
         }
-      );
+        return new Response(
+          JSON.stringify(user),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      } else {
+        const users = await User.find();
+        return new Response(
+          JSON.stringify(users),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
     } else {
-      return new Response(
-        JSON.stringify(user),
-        {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
+      if (userId) {
+        const user = await User.findById(userId);
+        if (!user) {
+          return new Response(
+            JSON.stringify({ message: "User not found" }),
+            {
+              status: 404,
+              headers: { 'Content-Type': 'application/json' },
+            }
+          );
         }
-      );
+        return new Response(
+          JSON.stringify(user),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      } else {
+        return new Response(
+          JSON.stringify({ message: "Unauthorized access" }),
+          {
+            status: 403,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
     }
   } catch (error) {
     return new Response(
