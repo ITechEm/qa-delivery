@@ -100,7 +100,7 @@ export default function MenuItem(menuItem) {
                         onChange={ev => handleExtraThingClick(ev, extraThing)}
                         checked={selectedExtras.map(e => e._id).includes(extraThing._id)}
                         name={extraThing.name} />
-                      {extraThing.name} +€{extraThing.price}
+                      {extraThing.name} €{extraThing.price}
                     </label>
                   ))}
                 </div>

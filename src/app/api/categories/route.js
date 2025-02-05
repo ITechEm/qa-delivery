@@ -3,12 +3,43 @@ import {Category} from "@/models/Category";
 import mongoose from "mongoose";
 
 export async function POST(req) {
-  mongoose.connect(process.env.MONGO_URL);
-  const {name} = await req.json();
+  await mongoose.connect(process.env.MONGO_URL);
+  const { name } = await req.json();
   
-    const categoryDoc = await Category.create({name});
-    return Response.json(categoryDoc);
- 
+  try {
+     
+     const existingCategory = await Category.findOne({ name });
+     if (existingCategory) {
+       return new Response(
+         JSON.stringify({ message: "Category already exists" }),
+         {
+           status: 400,
+           headers: { 'Content-Type': 'application/json' },
+         }
+       );
+     }
+   
+    const categoryDoc = await Category.create({ name });
+    return new Response(
+      JSON.stringify({
+        // _id: categoryDoc._id,
+        message: "Category successfully created",
+      }),
+      {
+        status: 201,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    return new Response(
+      JSON.stringify({ message: "Error creating category", error: error.message }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
 }
 
 export async function PUT(req) {
@@ -21,7 +52,7 @@ export async function PUT(req) {
   return Response.json(
     {
       name: name,
-      message: "The Category is successfully updated",
+      message: "Category successfully updated",
     }
   );
 }
