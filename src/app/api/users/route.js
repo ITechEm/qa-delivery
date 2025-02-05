@@ -59,6 +59,16 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get('_id');
     const user = await User.findById(userId);
+    if (!user) {
+      return new Response(
+        JSON.stringify({ message: "User not found" }),
+        {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+    
     if (await isAdmin()) {
       const users = await User.find();
       return new Response(
