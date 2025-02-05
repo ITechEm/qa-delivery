@@ -6,12 +6,12 @@ export default function UserTabs({isAdmin}) {
   const path = usePathname();
   return (
     <div className="flex mx-auto gap-2 tabs justify-center inknut flex-wrap">
-      <Link
+      <button
         className="rounded-50"
         href={'/profile'}
       >
            Profile
-      </Link>
+      </button>
       {isAdmin && (
         <>
           <Link
