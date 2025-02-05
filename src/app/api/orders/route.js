@@ -5,29 +5,73 @@ import {getServerSession} from "next-auth";
 
 
 export async function GET(req) {
-  await mongoose.connect(process.env.MONGO_URL);
-  // --Set admin for userEmail--
-  // const session = await getServerSession(authOptions);
-  // const userEmail = session?.user?.email;  
-  // const admin = await isAdmin();
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
 
-  const url = new URL(req.url);
-  const _id = url.searchParams.get('_id');
-  if (_id) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return new Response(
+        JSON.stringify({ message: "Unauthorized" }),
+        {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    const userEmail = session.user.email;
+    const admin = await isAdmin(userEmail);
+
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const _id = url.searchParams.get('_id');
+
+    if (_id) {
+      const order = await Order.findById(_id);
+      if (!order) {
+        return new Response(
+          JSON.stringify({ message: "Order not found" }),
+          {
+            status: 404,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+      }
+      return new Response(
+        JSON.stringify(order),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    if (admin) {
+      const orders = await Order.find();
+      return new Response(
+        JSON.stringify(orders),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    } else {
+      return new Response(
+        JSON.stringify({ message: "Forbidden" }),
+        {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+  } catch (error) {
     return new Response(
-      JSON.stringify(await Order.findById(_id)),
+      JSON.stringify({ message: "Error fetching orders", error: error.message }),
       {
-        status: 200,
+        status: 500,
         headers: { 'Content-Type': 'application/json' },
       }
     );
-  }return new Response(
-    JSON.stringify(await Order.find()),
-    {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    }
-  );
+  }
 }
   
 // --Set admin for userEmail--
