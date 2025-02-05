@@ -9,7 +9,7 @@ import {useEffect, useState} from "react";
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
-  const { loading, data: profile } = useProfile();
+  const {loading, data:profile} = useProfile();
 
   useEffect(() => {
     fetchOrders();
@@ -17,31 +17,29 @@ export default function OrdersPage() {
 
   function fetchOrders() {
     setLoadingOrders(true);
-    fetch('/api/orders')
-      .then(res => res.json())
-      .then(orders => {
+    fetch('/api/orders').then(res => {
+      res.json().then(orders => {
         setOrders(orders.reverse());
         setLoadingOrders(false);
       })
-      .catch(error => {
-        console.error('Error fetching orders:', error);
-        setLoadingOrders(false);
-      });
+    })
   }
 
   return (
     <section className="mt-8 max-w-2xl mx-auto">
-      {profile && <UserTabs isAdmin={profile.admin} />}
+      <UserTabs isAdmin={profile.admin} />
       <div className="mt-8">
-        {loadingOrders && (
+        {/* {loadingOrders && (
           <div className="text-center inria">Loading orders...</div>
-        )}
-        {orders?.length === 0 && !loadingOrders && (
+        )} */}
+        {orders?.length === 0 && (
           <div>
             <p className="text-center inria">
-              Looks like you have no orders... <br />
-              Go ahead and explore our menu’s
+            Looks like you have no orders... <br></br>
+            Go ahead and explore our menu’s  
             </p>
+
+
           </div>
         )}
         {orders?.length > 0 && orders.map(order => (
@@ -54,7 +52,7 @@ export default function OrdersPage() {
                   (order.paid ? 'bg-green-500' : 'bg-red-400')
                   + ' p-2 rounded-md text-white w-24 text-center'
                 }>
-                  {order.ppaid ? 'Paid' : 'Not paid'}
+                  {order.paid ? 'Paid' : 'Not paid'}
                 </div>
               </div>
               <div className="grow">
@@ -68,7 +66,7 @@ export default function OrdersPage() {
               </div>
             </div>
             <div className="justify-end flex gap-2 items-center whitespace-nowrap">
-              <Link to={"/orders/" + order._id} className="button">
+              <Link href={"/orders/"+order._id} className="button">
                 Show order
               </Link>
             </div>
@@ -77,4 +75,5 @@ export default function OrdersPage() {
       </div>
     </section>
   );
+  
 }

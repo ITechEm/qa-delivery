@@ -9,35 +9,30 @@ import Right from "@/components/icons/Right";
 import Image from "next/image";
 
 export default function OrderPage() {
-  const { clearCart } = useContext(CartContext);
+  const {clearCart} = useContext(CartContext);
   const [order, setOrder] = useState();
   const [loadingOrder, setLoadingOrder] = useState(true);
-  const { _id } = useParams();
-
+  const {id} = useParams();
   useEffect(() => {
     if (typeof window.console !== "undefined") {
       if (window.location.href.includes('clear-cart=1')) {
         clearCart();
       }
     }
-    if (_id) {
+    if (id) {
       setLoadingOrder(true);
-      fetch('/api/orders?_id=' + _id)
-        .then(res => res.json())
-        .then(orderData => {
+      fetch('/api/orders?_id='+id).then(res => {
+        res.json().then(orderData => {
           setOrder(orderData);
           setLoadingOrder(false);
-        })
-        .catch(error => {
-          console.error('Error fetching order:', error);
-          setLoadingOrder(false);
         });
+      })
     }
-  }, [_id, clearCart]);
+  }, []);
 
   let subtotal = 0;
   if (order?.cartProducts) {
-    for (const product of order.cartProducts) {
+    for (const product of order?.cartProducts) {
       subtotal += cartProductPrice(product);
     }
   }
@@ -46,19 +41,22 @@ export default function OrderPage() {
     <section className="hero md:mt-4">
       <div className="py-8 md:py-12">
         <h2 className="text-5xl neucha">
-          Your order is on the way
+        Your order is on the way 
           <span className="text-primary">
-            <span> </span>...
+          <span> </span>...
           </span>
         </h2>
         <p className="my-6 text-gray-500 text-sm inria">
-          We will call you when your order will arrive at your address.
+          We will call you when your order will arrive on your address.
         </p>
         <div className="flex gap-4 text-sm">
-          <a href="/" className="flex inknut justify-center bg-primary uppercase items-center gap-2 text-white px-4 py-2 rounded-full">
-            Home
+          <button className="flex inknut justify-center bg-primary uppercase flex items-center gap-2 text-white px-4 py-2 rounded-50">
+            <a 
+              href="/"> 
+              Home
+              </a>
             <Right />
-          </a>
+          </button>
         </div>
       </div>
       <div className="relative md:block">
@@ -87,7 +85,7 @@ export default function OrderPage() {
             </div>
           </div>
           <div className="">
-            <div className="grid md:block bg-gray-100 p-4 rounded-lg">
+            <div className=" grid md:block bg-gray-100 p-4 rounded-lg">
               <AddressInputs
                 disabled={true}
                 addressProps={order}
