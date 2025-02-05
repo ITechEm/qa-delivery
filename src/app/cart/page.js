@@ -1,18 +1,18 @@
 'use client';
-import { CartContext, cartProductPrice } from "@/components/AppContext";
+import {CartContext, cartProductPrice} from "@/components/AppContext";
 import Trash from "@/components/icons/Trash";
 import AddressInputs from "@/components/layout/AddressInputs";
 import SectionHeaders from "@/components/layout/SectionHeaders";
 import CartProduct from "@/components/menu/CartProduct";
-import { useProfile } from "@/components/UseProfile";
+import {useProfile} from "@/components/UseProfile";
 import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import toast from "react-hot-toast";
 
 export default function CartPage() {
-  const { cartProducts, removeCartProduct } = useContext(CartContext);
+  const {cartProducts,removeCartProduct} = useContext(CartContext);
   const [address, setAddress] = useState({});
-  const { data: profileData } = useProfile();
+  const {data:profileData} = useProfile();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -24,7 +24,7 @@ export default function CartPage() {
 
   useEffect(() => {
     if (profileData?.city) {
-      const { phone, streetAddress, city, postalCode, country } = profileData;
+      const {phone, streetAddress, city, postalCode, country} = profileData;
       const addressFromProfile = {
         phone,
         streetAddress,
@@ -40,11 +40,9 @@ export default function CartPage() {
   for (const p of cartProducts) {
     subtotal += cartProductPrice(p);
   }
-
   function handleAddressChange(propName, value) {
-    setAddress(prevAddress => ({ ...prevAddress, [propName]: value }));
+    setAddress(prevAddress => ({...prevAddress, [propName]:value}));
   }
-
   async function proceedToCheckout(ev) {
     ev.preventDefault();
     // address and shopping cart products
@@ -52,7 +50,7 @@ export default function CartPage() {
     const promise = new Promise((resolve, reject) => {
       fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type':'application/json'},
         body: JSON.stringify({
           address,
           cartProducts,
@@ -81,11 +79,12 @@ export default function CartPage() {
         <p className="mt-4 inria"><strong>Your cart is empty</strong></p>
         <p className="mt-1 inria">
           Looks like you have not added anything to your cart. <br></br>
-          Go ahead and explore our menu’s
+          Go ahead and explore our menu’s  
         </p>
         <div className="md:block p-8">
-          <Image src={'/empty_cart.png'} objectFit={'contain'} alt={'empty_cart'} width={200} height={200} className="mx-auto" />
+        <Image src={'/empty_cart.png'} objectFit={'contain'} alt={'empty_cart'} width={200} height={200} className="mx-auto"/>
         </div>
+       
       </section>
     );
   }
@@ -128,7 +127,7 @@ export default function CartPage() {
               addressProps={address}
               setAddressProp={handleAddressChange}
             />
-            <button type="submit">Pay €{subtotal + 5}</button>
+            <button type="submit">Pay €{subtotal+5}</button>   
           </form>
         </div>
       </div>
