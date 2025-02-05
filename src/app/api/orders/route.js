@@ -58,130 +58,130 @@ export async function GET(req) {
 //   );
 // }
 
-export async function POST(req) {
-  await mongoose.connect(process.env.MONGO_URL);
+// export async function POST(req) {
+//   await mongoose.connect(process.env.MONGO_URL);
 
-  try {
-    const orderData = await req.json();
-    const newOrder = new Order({
-      ...orderData,
-      createdAt: new Date(),
-    });
+//   try {
+//     const orderData = await req.json();
+//     const newOrder = new Order({
+//       ...orderData,
+//       createdAt: new Date(),
+//     });
 
-    const savedOrder = await newOrder.save();
+//     const savedOrder = await newOrder.save();
 
-    return new Response(
-      JSON.stringify(
-        {
-          _id: savedOrder._id,
-          message: "Order successfully created",
-        }
-      ),
-      {
-        status: 201,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error creating order", error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
+//     return new Response(
+//       JSON.stringify(
+//         {
+//           _id: savedOrder._id,
+//           message: "Order successfully created",
+//         }
+//       ),
+//       {
+//         status: 201,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       JSON.stringify({ message: "Error creating order", error: error.message }),
+//       {
+//         status: 500,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   }
+// }
 
-export async function PUT(req) {
-  await mongoose.connect(process.env.MONGO_URL);
+// export async function PUT(req) {
+//   await mongoose.connect(process.env.MONGO_URL);
 
-  try {
-    const { _id, ...data } = await req.json();
+//   try {
+//     const { _id, ...data } = await req.json();
 
-    if (_id) {
-      return new Response(
-        JSON.stringify({ message: "Order ID is required" }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (_id) {
+//       return new Response(
+//         JSON.stringify({ message: "Order ID is required" }),
+//         {
+//           status: 400,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    const updatedOrder = await Order.findByIdAndUpdate(_id, data, { new: true });
+//     const updatedOrder = await Order.findByIdAndUpdate(_id, data, { new: true });
 
-    if (!updatedOrder) {
-      return new Response(
-        JSON.stringify({ message: "Order not found" }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (!updatedOrder) {
+//       return new Response(
+//         JSON.stringify({ message: "Order not found" }),
+//         {
+//           status: 404,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    return new Response(
-      JSON.stringify(updatedOrder),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error updating order", error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
+//     return new Response(
+//       JSON.stringify(updatedOrder),
+//       {
+//         status: 200,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       JSON.stringify({ message: "Error updating order", error: error.message }),
+//       {
+//         status: 500,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   }
+// }
 
-export async function DELETE(req) {
-  await mongoose.connect(process.env.MONGO_URL);
+// export async function DELETE(req) {
+//   await mongoose.connect(process.env.MONGO_URL);
 
-  try {
-    const url = new URL(req.url);
-    const _id = url.searchParams.get('_id');
+//   try {
+//     const url = new URL(req.url);
+//     const _id = url.searchParams.get('_id');
 
-    if (!_id) {
-      return new Response(
-        JSON.stringify({ message: "Order ID is required" }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (!_id) {
+//       return new Response(
+//         JSON.stringify({ message: "Order ID is required" }),
+//         {
+//           status: 400,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    const deletedOrder = await Order.findByIdAndDelete(_id);
+//     const deletedOrder = await Order.findByIdAndDelete(_id);
 
-    if (!deletedOrder) {
-      return new Response(
-        JSON.stringify({ message: "Order not found" }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (!deletedOrder) {
+//       return new Response(
+//         JSON.stringify({ message: "Order not found" }),
+//         {
+//           status: 404,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    return new Response(
-      JSON.stringify({ message: "Order successfully deleted" }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error deleting order", error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
+//     return new Response(
+//       JSON.stringify({ message: "Order successfully deleted" }),
+//       {
+//         status: 200,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       JSON.stringify({ message: "Error deleting order", error: error.message }),
+//       {
+//         status: 500,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   }
+// }
