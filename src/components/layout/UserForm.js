@@ -39,14 +39,14 @@ export default function UserForm({user,onSave}) {
           })
         }
       >
-        <label className="inria">
-          Username
+        <label className="ml-2 inria">
+        First and last name
         </label>
         <input
-          type="text" disabled={false} placeholder="Username"
+          type="text" disabled={false} placeholder="First and last name"
           value={userName} onChange={ev => setUserName(ev.target.value)} minLength={0} maxLength={15}
         />
-        <label className="inria">Email</label>
+        <label className="ml-2 inria">Email</label>
         <input
           type="email"
           disabled={true}
@@ -69,7 +69,7 @@ export default function UserForm({user,onSave}) {
             </label>
           </div>
         )}
-        <button className="pt-4" type="submit">Save</button>
+        <button className="mt-4" type="submit">Save</button>
       </form>
     </div>
   );

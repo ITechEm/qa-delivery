@@ -2,12 +2,12 @@ export default function AddressInputs({addressProps,setAddressProp,disabled=fals
   const {phone, streetAddress, postalCode, city, country} = addressProps;
   return (
     <>
-      <label className="inria">Phone</label>
+      <label className="ml-2 inria">Phone</label>
       <input
         disabled={disabled}
         type="tel" placeholder="Phone number"
         value={phone || ''} onChange={ev => setAddressProp('phone', ev.target.value)} />
-      <label className="inria">Street address</label>
+      <label className="ml-2 inria">Street address</label>
       <input
         disabled={disabled}
         type="text" placeholder="Street address"
@@ -15,7 +15,7 @@ export default function AddressInputs({addressProps,setAddressProp,disabled=fals
       />
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <label className="inria">Postal code</label>
+          <label className="ml-2 inria">Postal code</label>
           <input
             disabled={disabled}
             type="text" placeholder="Postal code"
@@ -23,7 +23,7 @@ export default function AddressInputs({addressProps,setAddressProp,disabled=fals
           />
         </div>
         <div>
-          <label className="inria">City</label>
+          <label className="ml-2 inria">City</label>
           <input
             disabled={disabled}
             type="text" placeholder="City"
@@ -31,7 +31,7 @@ export default function AddressInputs({addressProps,setAddressProp,disabled=fals
           />
         </div>
       </div>
-      <label className="inria">Country</label>
+      <label className="ml-2 inria">Country</label>
       <input
         disabled={disabled}
         type="text" placeholder="Country"
