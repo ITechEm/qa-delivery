@@ -22,7 +22,7 @@ export async function GET(req) {
     const userEmail = session.user.email;
     const admin = await isAdmin(userEmail);
 
-    const url = new URL(req.url, `http://${req.headers.host}`);
+    const url = new URL(req.url);
     const _id = url.searchParams.get('_id');
 
     if (_id) {
@@ -168,7 +168,10 @@ export async function PUT(req) {
     }
 
     return new Response(
-      JSON.stringify(updatedOrder),
+      JSON.stringify({
+        message: "Order updated successfully",
+        user: data,
+      }),
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
