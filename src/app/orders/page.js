@@ -29,9 +29,7 @@ export default function OrdersPage() {
     <section className="mt-8 max-w-2xl mx-auto">
       <UserTabs isAdmin={profile.admin} />
       <div className="mt-8">
-        {loadingOrders && (
-          <div className="text-center inria">Loading orders...</div>
-        )}
+        {loadingOrders}
         {orders?.length === 0 && (
           <div>
             <p className="text-center inria">
