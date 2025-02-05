@@ -8,17 +8,6 @@ export async function GET(req) {
   try {
     await mongoose.connect(process.env.MONGO_URL);
 
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      return new Response(
-        JSON.stringify({ message: "Unauthorized" }),
-        {
-          status: 401,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
-
     const userEmail = session.user.email;
     const admin = await isAdmin(userEmail);
 
