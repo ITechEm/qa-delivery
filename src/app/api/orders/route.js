@@ -211,49 +211,49 @@ export async function GET(req) {
 //   }
 // }
 
-export async function DELETE(req) {
-  await mongoose.connect(process.env.MONGO_URL);
+// export async function DELETE(req) {
+//   await mongoose.connect(process.env.MONGO_URL);
 
-  try {
-    const url = new URL(req.url);
-    const _id = url.searchParams.get('_id');
+//   try {
+//     const url = new URL(req.url);
+//     const _id = url.searchParams.get('_id');
 
-    if (!_id) {
-      return new Response(
-        JSON.stringify({ message: "Order ID is required" }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (!_id) {
+//       return new Response(
+//         JSON.stringify({ message: "Order ID is required" }),
+//         {
+//           status: 400,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    const deletedOrder = await Order.findByIdAndDelete(_id);
+//     const deletedOrder = await Order.findByIdAndDelete(_id);
 
-    if (!deletedOrder) {
-      return new Response(
-        JSON.stringify({ message: "Order not found" }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (!deletedOrder) {
+//       return new Response(
+//         JSON.stringify({ message: "Order not found" }),
+//         {
+//           status: 404,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    return new Response(
-      JSON.stringify({ message: "Order successfully deleted" }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error deleting order", error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
+//     return new Response(
+//       JSON.stringify({ message: "Order successfully deleted" }),
+//       {
+//         status: 200,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       JSON.stringify({ message: "Error deleting order", error: error.message }),
+//       {
+//         status: 500,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   }
+// }
