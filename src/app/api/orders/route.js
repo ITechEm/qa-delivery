@@ -13,27 +13,24 @@ export async function GET(req) {
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
   if (_id) {
-    return Response.json( await Order.findById(_id) );
-  }
-
-  //   const order = await Order.findById(_id);
+    const order = await Order.findById(_id);
   
-  // if (!order) {
-  //           return new Response(
-  //             JSON.stringify({ message: "Order not found" }),
-  //             {
-  //               status: 404,
-  //               headers: { 'Content-Type': 'application/json' },
-  //             }
-  //           );
-  //         }return new Response(
-  //                   JSON.stringify(order),
-  //                   {
-  //                     status: 200,
-  //                     headers: { 'Content-Type': 'application/json' },
-  //                   }
-  //                 );
-  //               }
+  if (!order) {
+            return new Response(
+              JSON.stringify({ message: "Order not found" }),
+              {
+                status: 404,
+                headers: { 'Content-Type': 'application/json' },
+              }
+            );
+          }return new Response(
+                    JSON.stringify(order),
+                    {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' },
+                    }
+                  );
+                }
 
 
   if (admin) {
