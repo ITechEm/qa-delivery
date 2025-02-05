@@ -47,9 +47,6 @@ div.tabs > *.active{
 .flying-button-parent button{
     @apply border-primary bg-primary text-white rounded-full;
 }
-.Link{
-    @apply border border-gray-300 rounded-xl px-6 py-2;
-}
 
 
 /*FONTS*/
