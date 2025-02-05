@@ -12,7 +12,7 @@ export default function OrderPage() {
   const { clearCart } = useContext(CartContext);
   const [order, setOrder] = useState();
   const [loadingOrder, setLoadingOrder] = useState(true);
-  const { id } = useParams();
+  const { _id } = useParams();
 
   useEffect(() => {
     if (typeof window.console !== "undefined") {
@@ -20,9 +20,9 @@ export default function OrderPage() {
         clearCart();
       }
     }
-    if (id) {
+    if (_id) {
       setLoadingOrder(true);
-      fetch('/api/orders?_id=' + id)
+      fetch('/api/orders?_id=' + _id)
         .then(res => res.json())
         .then(orderData => {
           setOrder(orderData);
@@ -33,7 +33,7 @@ export default function OrderPage() {
           setLoadingOrder(false);
         });
     }
-  }, [id, clearCart]);
+  }, [_id, clearCart]);
 
   let subtotal = 0;
   if (order?.cartProducts) {
