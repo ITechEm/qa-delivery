@@ -9,12 +9,28 @@ export async function GET(req) {
   const session = await getServerSession(authOptions);
   const userEmail = session?.user?.email;
   const admin = await isAdmin();
-
+  
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
   if (_id) {
-    return Response.json( await Order.findById(_id) );
-  }
+    const order = await Order.findById(_id);
+  
+  if (!order) {
+            return new Response(
+              JSON.stringify({ message: "Order not found" }),
+              {
+                status: 404,
+                headers: { 'Content-Type': 'application/json' },
+              }
+            );
+          }return new Response(
+                    JSON.stringify(order),
+                    {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' },
+                    }
+                  );
+                }
 
 
   if (admin) {
@@ -26,7 +42,8 @@ export async function GET(req) {
   }
 
 }
-
+  
+// --Set admin for userEmail--
 // export async function GET(req) {
 //   try {
 //     await mongoose.connect(process.env.MONGO_URL);
@@ -96,36 +113,7 @@ export async function GET(req) {
 //     );
 //   }
 // }
-  
-// --Set admin for userEmail--
-//   if (admin) {
-//     return new Response(
-//       JSON.stringify(await Order.find()),
-//       {
-//         status: 200,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//     );
-//   }
 
-//   if (userEmail) {
-//     return new Response(
-//       JSON.stringify(await Order.find({ userEmail })),
-//       {
-//         status: 200,
-//         headers: { 'Content-Type': 'application/json' },
-//       }
-//     );
-//   }
-
-//   return new Response(
-//     JSON.stringify({ message: "Unauthorized" }),
-//     {
-//       status: 401,
-//       headers: { 'Content-Type': 'application/json' },
-//     }
-//   );
-// }
 
 export async function POST(req) {
   await mongoose.connect(process.env.MONGO_URL);
@@ -193,6 +181,7 @@ export async function PUT(req) {
     return new Response(
       JSON.stringify({
         message: "Order updated successfully",
+        // _id:_id,
         user: data,
       }),
       {
