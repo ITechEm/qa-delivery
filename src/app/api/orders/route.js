@@ -5,27 +5,29 @@ import {getServerSession} from "next-auth";
 
 
 export async function GET(req) {
-  mongoose.connect(process.env.MONGO_URL);
-
-  const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;
-  const admin = await isAdmin();
+  await mongoose.connect(process.env.MONGO_URL);
+  // --Set admin for userEmail--
+  // const session = await getServerSession(authOptions);
+  // const userEmail = session?.user?.email;  
+  // const admin = await isAdmin();
 
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
   if (_id) {
-    return Response.json( await Order.findById(_id) );
-  }
-
-
-  if (admin) {
-    return Response.json( await Order.find() );
-  }
-
-  if (userEmail) {
-    return Response.json( await Order.find({userEmail}) );
-  }
-
+    return new Response(
+      JSON.stringify(await Order.findById(_id)),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }return new Response(
+    JSON.stringify(await Order.find()),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
 }
   
 // --Set admin for userEmail--
@@ -99,7 +101,7 @@ export async function PUT(req) {
   try {
     const { _id, ...data } = await req.json();
 
-    if (_id) {
+    if (!_id) {
       return new Response(
         JSON.stringify({ message: "Order ID is required" }),
         {
