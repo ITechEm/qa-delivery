@@ -74,7 +74,7 @@ export default function Header() {
           <Link href={'/menu'}>Menu</Link>
           <Link href={'/#about'}>About</Link>
           <Link href={'/#contact'}>Contact</Link>
-          <AuthLinks status={status} userName={userName} maxLength={10}/>
+          <AuthLinks className="text-center item-center" status={status} userName={userName} maxLength={10}/>
         </div>
       )}
       <div className="hidden md:flex items-center justify-between">
