@@ -7,9 +7,9 @@ import {getServerSession} from "next-auth";
 export async function GET(req) {
   await mongoose.connect(process.env.MONGO_URL);
   // --Set admin for userEmail--
-  const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;  
-  const admin = await isAdmin();
+  // const session = await getServerSession(authOptions);
+  // const userEmail = session?.user?.email;  
+  // const admin = await isAdmin();
 
   const url = new URL(req.url);
   const _id = url.searchParams.get('_id');
