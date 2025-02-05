@@ -127,40 +127,40 @@ export async function GET(req) {
 //   );
 // }
 
-export async function POST(req) {
-  await mongoose.connect(process.env.MONGO_URL);
+// export async function POST(req) {
+//   await mongoose.connect(process.env.MONGO_URL);
 
-  try {
-    const orderData = await req.json();
-    const newOrder = new Order({
-      ...orderData,
-      createdAt: new Date(),
-    });
+//   try {
+//     const orderData = await req.json();
+//     const newOrder = new Order({
+//       ...orderData,
+//       createdAt: new Date(),
+//     });
 
-    const savedOrder = await newOrder.save();
+//     const savedOrder = await newOrder.save();
 
-    return new Response(
-      JSON.stringify(
-        {
-          _id: savedOrder._id,
-          message: "Order successfully created",
-        }
-      ),
-      {
-        status: 201,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error creating order", error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
+//     return new Response(
+//       JSON.stringify(
+//         {
+//           _id: savedOrder._id,
+//           message: "Order successfully created",
+//         }
+//       ),
+//       {
+//         status: 201,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       JSON.stringify({ message: "Error creating order", error: error.message }),
+//       {
+//         status: 500,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   }
+// }
 
 export async function PUT(req) {
   await mongoose.connect(process.env.MONGO_URL);
