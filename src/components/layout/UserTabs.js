@@ -7,7 +7,7 @@ export default function UserTabs({isAdmin}) {
   return (
     <div className="flex mx-auto gap-2 tabs justify-center inknut flex-wrap rounded-xl">
       <Link
-        className={"{path === '/profile' ? 'active' : ''} rounded"}
+        className="{path === '/profile' ? 'active' : ''} rounded-xl"
         href={'/profile'}
       >
            Profile
