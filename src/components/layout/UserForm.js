@@ -69,7 +69,7 @@ export default function UserForm({user,onSave}) {
             </label>
           </div>
         )}
-        <button type="submit">Save</button>
+        <button className="pt-4" type="submit">Save</button>
       </form>
     </div>
   );
