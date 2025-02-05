@@ -53,13 +53,38 @@ import mongoose from "mongoose";
 //   }
 // }
 
-export async function GET() {
-  mongoose.connect(process.env.MONGO_URL);
-  if (await isAdmin()) {
-    const users = await User.find();
-    return Response.json(users);
-  } else {
-    return Response.json([]);
+export async function GET(req) {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get('_id');
+    const user = await User.findById(userId);
+    if (await isAdmin()) {
+      const users = await User.find();
+      return new Response(
+        JSON.stringify(users),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    } else {
+      return new Response(
+        JSON.stringify(user),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ message: "Error fetching users", error: error.message }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 }
 
