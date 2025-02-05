@@ -101,7 +101,7 @@ export async function PUT(req) {
   try {
     const { _id, ...data } = await req.json();
 
-    if (!_id) {
+    if (_id) {
       return new Response(
         JSON.stringify({ message: "Order ID is required" }),
         {
