@@ -12,16 +12,16 @@ export default function OrderPage() {
   const {clearCart} = useContext(CartContext);
   const [order, setOrder] = useState();
   const [loadingOrder, setLoadingOrder] = useState(true);
-  const {id} = useParams();
+  const {_id} = useParams();
   useEffect(() => {
     if (typeof window.console !== "undefined") {
       if (window.location.href.includes('clear-cart=1')) {
         clearCart();
       }
     }
-    if (id) {
+    if (_id) {
       setLoadingOrder(true);
-      fetch('/api/orders?_id='+id).then(res => {
+      fetch('/api/orders?_id='+_id).then(res => {
         res.json().then(orderData => {
           setOrder(orderData);
           setLoadingOrder(false);
