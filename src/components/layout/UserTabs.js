@@ -10,7 +10,7 @@ export default function UserTabs({isAdmin}) {
         className={path === '/profile' ? 'active' : ''}
         href={'/profile'}
       >
-           Profile
+           Profiles
       </Link>
       {isAdmin && (
         <>
