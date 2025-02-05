@@ -162,54 +162,54 @@ export async function GET(req) {
 //   }
 // }
 
-export async function PUT(req) {
-  await mongoose.connect(process.env.MONGO_URL);
+// export async function PUT(req) {
+//   await mongoose.connect(process.env.MONGO_URL);
 
-  try {
-    const { _id, ...data } = await req.json();
+//   try {
+//     const { _id, ...data } = await req.json();
 
-    if (!_id) {
-      return new Response(
-        JSON.stringify({ message: "Order ID is required" }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (!_id) {
+//       return new Response(
+//         JSON.stringify({ message: "Order ID is required" }),
+//         {
+//           status: 400,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    const updatedOrder = await Order.findByIdAndUpdate(_id, data, { new: true });
+//     const updatedOrder = await Order.findByIdAndUpdate(_id, data, { new: true });
 
-    if (!updatedOrder) {
-      return new Response(
-        JSON.stringify({ message: "Order not found" }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+//     if (!updatedOrder) {
+//       return new Response(
+//         JSON.stringify({ message: "Order not found" }),
+//         {
+//           status: 404,
+//           headers: { 'Content-Type': 'application/json' },
+//         }
+//       );
+//     }
 
-    return new Response(
-      JSON.stringify({
-        message: "Order updated successfully",
-        user: data,
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ message: "Error updating order", error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-}
+//     return new Response(
+//       JSON.stringify({
+//         message: "Order updated successfully",
+//         user: data,
+//       }),
+//       {
+//         status: 200,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       JSON.stringify({ message: "Error updating order", error: error.message }),
+//       {
+//         status: 500,
+//         headers: { 'Content-Type': 'application/json' },
+//       }
+//     );
+//   }
+// }
 
 export async function DELETE(req) {
   await mongoose.connect(process.env.MONGO_URL);
