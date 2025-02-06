@@ -21,7 +21,7 @@ export default function UserForm({user,onSave}) {
     if (propName === 'postalCode') setPostalCode(value);
     if (propName === 'city') setCity(value);
     if (propName === 'country') setCountry(value);
-  }
+  } 
 
   return (
     <div className="md:flex gap-4 item-center">
