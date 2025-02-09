@@ -10,7 +10,7 @@ function AuthLinks({ status, userName }) {
   if (status === 'authenticated') {
     return (
       <>
-        <Link href={'/profile'} className="whitespace-nowrap">
+        <Link data-testid="gotoprofile" href={'/profile'} className="whitespace-nowrap">
           <h1 className="text-black inknut trimmedbutton">Hi, {userName}</h1>
         </Link>
         <button
