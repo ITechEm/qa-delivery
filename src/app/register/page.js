@@ -79,7 +79,7 @@ export default function RegisterPage() {
       )}
 
       <form className="block max-w-xs mx-auto inika" onSubmit={handleFormSubmit}>
-          <input
+          <input data-testid="remail"
             type="email"
             name="email"
             placeholder="Email"
@@ -88,7 +88,7 @@ export default function RegisterPage() {
             onChange={handleChange}
             required
           />
-          <input
+          <input data-testid="rpassword"
             type="password"
             name="password"
             placeholder="Password"
@@ -100,7 +100,7 @@ export default function RegisterPage() {
             maxLength={15}
           />
         <p className=" mx-auto ml-2 mb-6"></p>
-        <button type="submit" disabled={formData.creatingUser}>
+        <button data-testid="registerbtn" type="submit" disabled={formData.creatingUser}>
           {formData.creatingUser ? 'Registering...' : 'Register'}
         </button>
         <div className="text-center pt-4 inria">
