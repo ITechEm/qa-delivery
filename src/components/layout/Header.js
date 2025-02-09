@@ -10,8 +10,8 @@ function AuthLinks({ status, userName }) {
   if (status === 'authenticated') {
     return (
       <>
-        <Link data-testid="gotoprofile" href={'/profile'} className="whitespace-nowrap">
-          <h1 className="text-black inknut trimmedbutton">Hi, {userName}</h1>
+        <Link  href={'/profile'} className="whitespace-nowrap">
+          <h1 data-testid="gotoprofile" className="text-black inknut trimmedbutton">Hi, {userName}</h1>
         </Link>
         <button
           onClick={() => signOut({ callbackUrl: '/' })}
