@@ -39,7 +39,7 @@ export default function UserForm({user,onSave}) {
           })
         }
       >
-        <label className="ml-2 inria">
+        <label data-testid="username" className="ml-2 inria">
         First and last name
         </label>
         <input
@@ -69,7 +69,7 @@ export default function UserForm({user,onSave}) {
             </label>
           </div>
         )}
-        <button className="mt-8" type="submit">Save</button>
+        <button data-testid="saveprofilebtn" className="mt-8" type="submit">Save</button>
       </form>
     </div>
   );
