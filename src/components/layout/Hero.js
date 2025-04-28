@@ -18,7 +18,7 @@ export default function Hero() {
           complete, a simple yet delicious joy in life
         </p>
         <div className="flex gap-4 text-sm">
-          <button className="flex  bg-primary uppercase items-center text-white rounded inknut">
+          <button className="flex  bg-primary uppercase items-center text-white rounded inknut item:hover">
             <a 
               href="/menu"> 
               Order Now
@@ -28,7 +28,7 @@ export default function Hero() {
        
         </div>
       </div>
-      <div className="relative hidden md:block">
+      <div className="relative hidden md:block w-full h-[400px]">
         <Image src={'/pizza.png'} layout={'fill'} objectFit={'contain'} alt={'pizza'} />
       </div>
     </section>

@@ -97,3 +97,15 @@ div.tabs > *.active{
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+.button:hover::before{
+    top: -30px;
+    left: -30px;
+    
+  }
+
+.button:active::before{
+    
+    background-color: #af2323;
+    transition: 0.3s ease;
+}

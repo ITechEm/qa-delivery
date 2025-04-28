@@ -10,7 +10,8 @@ module.exports = {
       colors: {
         primary: '#426B1F',
         graylight: '#6D6D6D',
-        balck: '#000000'
+        balck: '#000000',
+        rosu: '#af2323',
       },
     },
   },
