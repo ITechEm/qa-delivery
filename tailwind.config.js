@@ -12,6 +12,8 @@ module.exports = {
         graylight: '#6D6D6D',
         balck: '#000000',
         rosu: '#af2323',
+        yellow: '#dcf116',
+        roz:'#E24A4A'
       },
     },
   },

@@ -25,7 +25,7 @@ function AuthLinks({ status, userName }) {
     return (
       <>
         <Link href={'/login'} className="text-black inknut">Login</Link>
-        <Link href={'/register'} className="bg-primary rounded text-white px-8 py-2 inknut">
+        <Link href={'/register'} className="bg-roz rounded-full text-black px-8 py-2 inknut">
           Register
         </Link>
       </>
